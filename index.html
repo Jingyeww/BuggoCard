@@ -174,12 +174,11 @@
         .two-btns {
             display: flex;
             justify-content: center;
-            align-items: center;
             gap: 30px;
             margin-top: 40px;
+            flex-wrap: wrap;
             position: relative;
             min-height: 120px;
-            width: 100%;
         }
 
         .yes-btn {
@@ -188,9 +187,7 @@
             font-size: 2rem;
             padding: 16px 48px;
             position: relative;
-            z-index: 20;  /* YES button on TOP */
-            flex-shrink: 0;
-            box-shadow: 0 10px 20px rgba(255, 70, 120, 0.4), 0 0 0 5px rgba(255, 255, 255, 0.5); /* Glow effect */
+            z-index: 10;
         }
 
         .no-btn {
@@ -198,14 +195,12 @@
             border-bottom: 8px solid #6b5e5e;
             font-size: 2rem;
             padding: 16px 48px;
-            opacity: 0.8;
+            opacity: 0.9;
             cursor: pointer;
             pointer-events: auto;
             position: absolute;
             transition: all 0.2s ease;
-            z-index: 5;  /* NO button runs BEHIND the YES button */
-            flex-shrink: 0;
-            filter: drop-shadow(0 4px 4px rgba(0,0,0,0.1));
+            z-index: 20;
         }
 
         .no-btn:hover {
@@ -305,7 +300,6 @@
              alt="Twinkle Dino" onerror="this.src='https://via.placeholder.com/500x500/ffb6c1/9f3e5c?text=Twinkle+Dino'">
         <div class="two-btns" id="buttonContainer">
             <button id="yesBtn" class="btn yes-btn">YES</button>
-            <!-- NO button starts BESIDE Yes button (will be positioned by JS) -->
             <button id="noBtn" class="btn no-btn">No</button>
         </div>
         <p id="teaseMessage" class="tease-message"></p>
@@ -316,9 +310,9 @@
         <h1 style="font-size: 2.5rem;">💖 See you on 14th Feb! 💖</h1>
         <img id="page4-img" class="fourth-img" src="https://raw.githubusercontent.com/Jingyeww/BuggoCard/main/twinklebirb.png"
              alt="Twinkle Birb" onerror="this.src='https://via.placeholder.com/500x500/ffb6c1/9f3e5c?text=Twinkle+Birb'">
-        <div class="plan-details">
+        <!-- <div class="plan-details">
             <span class="plan-text">📅 Plan:<br> Kafe Utu ☕<br> & <br> Skull Panda Exhibit 🧸</span>
-        </div>
+        </div> -->
         <p style="font-size: 1.8rem; margin-top: 30px;">Can't wait! ✨</p>
         <p class="heart">❤️ ❤️ ❤️</p>
         <p style="color: #a13e57; margin-top: 35px;">– Made with love by Buffilo –</p>
@@ -419,36 +413,11 @@
             // --- PAGE 2: next button -> page3 ---
             nextBtn2.addEventListener('click', function() {
                 showPage(page3);
-                // Small delay to ensure container is rendered
-                setTimeout(() => {
-                    resetNoButton();
-                }, 50);
+                // Reset no button position when entering page 3
+                resetNoButton();
             });
 
-            // --- 🏃‍♂️ POSITION NO BUTTON BESIDE YES BUTTON (STARTING POSITION) 🏃‍♂️ ---
-            function setInitialPosition() {
-                // Get YES button position
-                const yesBtnRect = yesBtn.getBoundingClientRect();
-                const containerRect = buttonContainer.getBoundingClientRect();
-                
-                // Position NO button to the RIGHT of YES button
-                const noBtnWidth = noBtn.offsetWidth;
-                const noBtnHeight = noBtn.offsetHeight;
-                
-                // Calculate position: right next to YES button with 20px gap
-                const startX = (yesBtnRect.right - containerRect.left) + 20;
-                const startY = (yesBtnRect.top - containerRect.top);
-                
-                // Ensure it stays within container bounds
-                const containerWidth = buttonContainer.offsetWidth;
-                const maxX = Math.max(0, containerWidth - noBtnWidth - 10);
-                
-                noBtn.style.left = Math.min(startX, maxX) + 'px';
-                noBtn.style.top = startY + 'px';
-                noBtn.style.right = 'auto';
-            }
-
-            // --- 🏃‍♂️ THE RUNAWAY NO BUTTON (NEVER COVERS YES) 🏃‍♂️ ---
+            // --- 🏃‍♂️ THE RUNAWAY NO BUTTON! 🏃‍♂️ ---
             function getRandomPosition() {
                 const container = buttonContainer;
                 const containerWidth = container.offsetWidth;
@@ -456,61 +425,13 @@
                 const noBtnWidth = noBtn.offsetWidth;
                 const noBtnHeight = noBtn.offsetHeight;
                 
-                // Get YES button position
-                const yesBtnRect = yesBtn.getBoundingClientRect();
-                const containerRect = container.getBoundingClientRect();
+                // Calculate safe boundaries (keep button within container)
+                const maxX = Math.max(0, containerWidth - noBtnWidth - 20);
+                const maxY = Math.max(0, containerHeight - noBtnHeight - 20);
                 
-                // Calculate YES button position relative to container
-                const yesBtnLeft = yesBtnRect.left - containerRect.left;
-                const yesBtnRight = yesBtnRect.right - containerRect.left;
-                const yesBtnTop = yesBtnRect.top - containerRect.top;
-                const yesBtnBottom = yesBtnRect.bottom - containerRect.top;
-                
-                // Create a NO-GO ZONE around YES button (NO button cannot enter this area)
-                const padding = 30; // pixels of buffer around YES button
-                const noGoLeft = Math.max(0, yesBtnLeft - padding);
-                const noGoRight = Math.min(containerWidth, yesBtnRight + padding);
-                const noGoTop = Math.max(0, yesBtnTop - padding);
-                const noGoBottom = Math.min(containerHeight, yesBtnBottom + padding);
-                
-                let attempts = 0;
-                const maxAttempts = 200;
-                let validPosition = false;
-                let randomX, randomY;
-                
-                // Try to find a position that doesn't overlap YES button's no-go zone
-                while (!validPosition && attempts < maxAttempts) {
-                    // Generate random position ANYWHERE in the container
-                    randomX = Math.floor(Math.random() * Math.max(1, containerWidth - noBtnWidth));
-                    randomY = Math.floor(Math.random() * Math.max(1, containerHeight - noBtnHeight));
-                    
-                    // Check if position is in the no-go zone around YES button
-                    const noBtnRight = randomX + noBtnWidth;
-                    const noBtnBottom = randomY + noBtnHeight;
-                    
-                    const overlapsHorizontally = (randomX < noGoRight && noBtnRight > noGoLeft);
-                    const overlapsVertically = (randomY < noGoBottom && noBtnBottom > noGoTop);
-                    
-                    validPosition = !(overlapsHorizontally && overlapsVertically);
-                    attempts++;
-                }
-                
-                // If we can't find a valid position, put it far away from YES button
-                if (!validPosition) {
-                    // Put it in a corner far from YES button
-                    if (yesBtnLeft < containerWidth / 2) {
-                        // YES is on left, put NO on far right
-                        randomX = Math.max(containerWidth - noBtnWidth - 20, containerWidth * 0.7);
-                    } else {
-                        // YES is on right, put NO on far left
-                        randomX = Math.min(20, containerWidth * 0.1);
-                    }
-                    randomY = Math.floor(Math.random() * Math.max(0, containerHeight - noBtnHeight - 20));
-                }
-                
-                // Ensure within bounds
-                randomX = Math.max(0, Math.min(randomX, containerWidth - noBtnWidth));
-                randomY = Math.max(0, Math.min(randomY, containerHeight - noBtnHeight));
+                // Generate random positions
+                const randomX = Math.min(maxX, Math.max(0, Math.floor(Math.random() * maxX)));
+                const randomY = Math.min(maxY, Math.max(0, Math.floor(Math.random() * maxY)));
                 
                 return { x: randomX, y: randomY };
             }
@@ -519,7 +440,6 @@
                 const position = getRandomPosition();
                 noBtn.style.left = position.x + 'px';
                 noBtn.style.top = position.y + 'px';
-                noBtn.style.right = 'auto';
                 
                 // Random teasing messages
                 const messages = [
@@ -532,11 +452,7 @@
                     '🎪 Over here!',
                     '🍃 Speedy Gondola!',
                     '😆 Haha! Speedy Gondola!',
-                    '🎠 Think about it PLEASE!',
-                    '👀 Behind you!',
-                    '🔄 Can\'t catch me!',
-                    '⭐ Too slow!',
-                    '🌈 Wheee!'
+                    '🎠 Think about it PLEASE!'
                 ];
                 
                 const randomMessage = messages[Math.floor(Math.random() * messages.length)];
@@ -544,9 +460,11 @@
             }
 
             function resetNoButton() {
-                // Reset to position BESIDE the YES button
-                setInitialPosition();
-                teaseMessage.textContent = '😏 Try to say no!';
+                // Reset no button to default position
+                noBtn.style.left = '';
+                noBtn.style.top = '';
+                noBtn.style.position = 'absolute';
+                teaseMessage.textContent = '';
             }
 
             // Make no button run away when clicked
@@ -556,9 +474,9 @@
                 moveNoButton();
             });
 
-            // Also move when hovered (SUPER cheeky!)
+            // Also move when hovered (extra cheeky!)
             noBtn.addEventListener('mouseover', function(e) {
-                // 90% chance to move on hover - ZOOM ZOOM!
+                // 70% chance to move on hover for extra fun
                 if (Math.random() > 0.1) {
                     moveNoButton();
                 }
@@ -607,3 +525,8 @@
     </script>
 </body>
 </html>
+
+
+
+
+
