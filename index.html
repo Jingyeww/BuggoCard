@@ -2,620 +2,391 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>🍓 twinkle twinkle · valentine date</title>
-    <!-- PopMart / Twinkle Twinkle aesthetic: soft pinks, kawaii, playful, sparkles -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Jing Yew ❤️</title>
+    <!-- font & basic reset -->
     <style>
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background: radial-gradient(circle at 10% 30%, #ffd9e6, #ffb3c6);
-            font-family: 'Segoe UI', 'Quicksand', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-family: 'Segoe UI', 'Helvetica', 'Arial', sans-serif;
+            background: linear-gradient(145deg, #ffe6f0 0%, #ffd9e8 100%);
             min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             margin: 0;
-            padding: 16px;
-            position: relative;
-            overflow-x: hidden;
+            padding: 20px;
         }
 
-        /* sparkle overlay – twinkle twinkle magic */
-        .sparkle-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
+        .page {
+            max-width: 700px;
             width: 100%;
-            height: 100%;
-            pointer-events: none;
-            background: url('data:image/svg+xml;utf8,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="15" r="2.5" fill="white" opacity="0.7"/><circle cx="45" cy="8" r="2" fill="%23ffe0f0" opacity="0.9"/><circle cx="30" cy="50" r="3" fill="%23fff0f5" opacity="0.8"/><circle cx="52" cy="40" r="2" fill="white" opacity="0.6"/><circle cx="5" cy="48" r="2.2" fill="%23ffe4ed" opacity="0.7"/><path d="M22 12 L24 16 L28 16 L25 19 L26 24 L22 21 L18 24 L19 19 L16 16 L20 16 Z" fill="%23fff9e6" opacity="0.5" transform="scale(0.6)"/><path d="M38 32 L40 36 L44 36 L41 39 L42 44 L38 41 L34 44 L35 39 L32 36 L36 36 Z" fill="%23ffe0f0" opacity="0.5" transform="scale(0.5)"/></svg>') repeat;
-            background-size: 180px 180px;
-            opacity: 0.5;
-            z-index: 0;
-        }
-
-        .main-card {
-            max-width: 420px;
-            width: 100%;
-            background: rgba(255, 245, 240, 0.75);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-radius: 48px 48px 42px 42px;
-            border: 2px solid rgba(255, 220, 240, 0.8);
-            box-shadow: 0 20px 35px rgba(245, 150, 170, 0.2), 0 0 0 4px rgba(255, 230, 240, 0.5);
-            padding: 28px 24px 40px;
-            position: relative;
-            z-index: 10;
-            transition: all 0.2s ease;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            background: #fff9fb;
+            border-radius: 48px 24px 48px 24px;
+            box-shadow: 0 20px 40px rgba(210, 70, 110, 0.25);
+            padding: 2.8rem 2rem;
             text-align: center;
+            border: 2px solid #ffb6c9;
+            transition: all 0.2s ease;
         }
 
-        /* twinkle twinkle character — hand-drawn cute style */
-        .character-area {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 18px;
+        .hidden {
+            display: none !important;
         }
 
-        .twinkle-face {
-            background: #ffdfc5;
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            border: 5px solid #ffb0b0;
-            box-shadow: 0 8px 0 #cc8f8f, 0 12px 25px #ffa5a5;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            margin-bottom: 8px;
+        h1, h2, p {
+            color: #9f3e5c;
+            font-weight: 600;
+            letter-spacing: -0.5px;
         }
 
-        .eyes {
-            display: flex;
-            gap: 22px;
-            margin-top: -5px;
+        h1 {
+            font-size: 2.4rem;
+            margin-bottom: 1.2rem;
+            text-shadow: 3px 3px 0 #ffe2ec;
         }
 
-        .eye {
-            background: white;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            border: 3px solid #835e5e;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .love-question {
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            color: #b34160;
         }
 
-        .pupil {
-            background: #4a2b2b;
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            transition: 0.1s;
-            border: 2px solid #926b6b;
+        /* slider */
+        .slider-container {
+            margin: 40px 0 30px;
         }
 
-        .blush {
-            background: #ffb6b6;
-            width: 18px;
-            height: 8px;
-            border-radius: 20px;
-            position: absolute;
-            bottom: 32px;
-            left: 20px;
-            opacity: 0.7;
-            box-shadow: 50px 0 #ffb6b6;
-        }
-
-        .mouth {
-            background: #ff7b8c;
-            width: 32px;
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
             height: 18px;
-            border-radius: 0 0 30px 30px;
-            margin-top: 6px;
-            border: 2px solid #b15454;
-        }
-
-        .heart-ear {
-            position: absolute;
-            top: -20px;
-            left: 5px;
-            font-size: 38px;
-            transform: rotate(-15deg);
-            filter: drop-shadow(2px 6px 0 rgba(255, 100, 150, 0.3));
-        }
-
-        .heart-ear-right {
-            position: absolute;
-            top: -20px;
-            right: 5px;
-            font-size: 38px;
-            transform: rotate(15deg);
-            filter: drop-shadow(2px 6px 0 rgba(255, 100, 150, 0.3));
-        }
-
-        .twinkle-name {
-            font-size: 26px;
-            font-weight: 700;
-            color: #ad4b6e;
-            letter-spacing: 2px;
-            text-shadow: 0 2px 0 #ffe4ed;
-            margin-top: -5px;
-            background: rgba(255, 230, 240, 0.7);
-            padding: 4px 18px;
+            background: linear-gradient(to right, #ff99bb, #ff3f6b);
             border-radius: 50px;
-            border: 2px dashed #ff92a5;
-            backdrop-filter: blur(2px);
+            outline: none;
+            border: 2px solid white;
+            box-shadow: 0 0 0 2px #ff94b2;
         }
 
-        .valentine-question {
-            font-size: 32px;
-            font-weight: 900;
-            color: #6e2c47;
-            margin: 18px 0 10px;
-            text-shadow: 0 2px 0 white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 34px;
+            height: 34px;
+            background: white;
+            border-radius: 50%;
+            border: 3px solid #c1254b;
+            box-shadow: 0 6px 0 #b34160, 0 8px 20px rgba(190, 50, 90, 0.4);
+            cursor: pointer;
+            transition: 0.1s;
         }
 
-        .question-text {
-            background: #fff4f9;
-            padding: 8px 24px;
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            background: #ffe5ec;
+        }
+
+        .slider-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-top: 20px;
+            color: #ad3a5a;
+            background: #ffecf0;
+            display: inline-block;
+            padding: 10px 40px;
             border-radius: 60px;
-            border: 3px solid white;
-            box-shadow: 0 5px 0 #e7a1b0;
-            font-size: 28px;
-            letter-spacing: 2px;
-        }
-
-        .button-panel {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 25px;
-            margin: 30px 0 20px;
-            flex-wrap: wrap;
-            position: relative;
-            min-height: 80px;
+            border: 3px solid #ffa5bb;
         }
 
         .btn {
+            background: #ff4d6d;
             border: none;
-            background: white;
-            padding: 16px 36px;
-            border-radius: 80px;
-            font-size: 28px;
+            padding: 18px 54px;
+            border-radius: 50px;
+            font-size: 1.6rem;
             font-weight: bold;
-            color: #4f2d3f;
-            box-shadow: 0 7px 0 #c28181, 0 10px 25px #ffb8b8;
-            border: 3px solid #ffafc0;
-            transition: all 0.06s linear;
-            letter-spacing: 2px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            background: #fff5f7;
-            flex: 0 0 auto;
-            touch-action: none; /* helps with touch movement */
-        }
-
-        .btn-yes {
-            background: #ffafc0;
-            border-color: #ff4a6e;
             color: white;
-            text-shadow: 0 1px 0 #b34b5e;
-            box-shadow: 0 7px 0 #b85872, 0 12px 25px #ff8899;
-            padding: 16px 44px;
-        }
-
-        .btn-no {
-            background: #ffe3e3;
-            color: #5e3a3a;
-            border-color: #ffb0b0;
-            box-shadow: 0 7px 0 #c28181, 0 10px 25px #ffb8b8;
-            position: relative;
-            will-change: left, top; /* performance */
-            transition: left 0.08s ease, top 0.08s ease; /* smooth runaway */
-        }
-
-        /* invite card — initially hidden */
-        .invite-card {
+            letter-spacing: 2px;
+            border-bottom: 8px solid #a13047;
+            transition: 0.08s linear;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(255, 70, 120, 0.4);
             margin-top: 30px;
-            background: #ffecf0;
-            border: 5px solid white;
-            border-radius: 70px 70px 40px 40px;
-            padding: 28px 20px;
-            box-shadow: 0 12px 0 #dc8e9e, inset 0 -3px 0 rgba(0,0,0,0.03);
-            display: none;
-            backdrop-filter: blur(10px);
-            animation: pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        .invite-card.show {
+        .btn:active {
+            border-bottom-width: 2px;
+            transform: translateY(6px);
+        }
+
+        .btn.small {
+            font-size: 1.3rem;
+            padding: 14px 36px;
+        }
+
+        .valentine-img {
+            width: 300px;
+            max-width: 90%;
+            border-radius: 40px;
+            margin: 30px auto;
+            border: 8px solid white;
+            box-shadow: 0 18px 25px #ffb6c1;
             display: block;
         }
 
-        .invite-text {
-            font-size: 26px;
-            font-weight: 800;
-            color: #892e4c;
+        .two-btns {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .yes-btn {
+            background: #ff4370;
+            border-bottom: 8px solid #9e2d48;
+            font-size: 2rem;
+            padding: 16px 48px;
+        }
+
+        .no-btn {
+            background: #c0b3b3;
+            border-bottom: 8px solid #6b5e5e;
+            font-size: 2rem;
+            padding: 16px 48px;
+            opacity: 0.7;
+            cursor: not-allowed;
+            pointer-events: none;  /* not functional */
+        }
+
+        .no-btn:hover {
+            background: #b1a1a1; 
+            border-bottom-width: 8px; /* stay same, no click */
+        }
+
+        .plan-details {
+            background: #ffdee6;
+            padding: 30px 20px;
+            border-radius: 60px 20px 60px 20px;
+            margin: 30px 0 20px;
+            border: 4px dashed #ff6f91;
+        }
+
+        .plan-text {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #882d46;
             line-height: 1.4;
         }
 
-        .invite-text span {
-            background: #ffd3d3;
-            padding: 5px 18px;
-            border-radius: 50px;
-            display: inline-block;
-            margin: 6px 0;
-            border: 3px solid #fff7f7;
+        .small-note {
+            margin-top: 35px;
+            font-size: 1.1rem;
+            color: #bf5b6e;
         }
 
-        .kafe-utu {
-            font-size: 34px;
-            font-weight: 900;
-            color: #b3415c;
-            text-shadow: 0 3px 0 white;
-            letter-spacing: 3px;
-            background: #fffbe3;
-            padding: 6px 12px;
+        /* image placeholder style */
+        .custom-img {
+            max-width: 100%;
+            height: auto;
             border-radius: 30px;
-            margin-top: 14px;
-            border: 4px dotted #ff7a8f;
         }
 
-        .small-hearts {
-            font-size: 30px;
-            margin-top: 8px;
-            letter-spacing: 12px;
-        }
-
-        @keyframes pop {
-            0% { transform: scale(0.7); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        /* mobile safe runaway area – container relative */
-        .runaway-container {
-            position: relative;
-            display: inline-block;
-        }
-
-        /* extra sparkles */
-        .shimmer {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.4) 0%, transparent 60%);
-            pointer-events: none;
-            border-radius: inherit;
-        }
-
-        /* no button forced not clickable? we make it escape but also pointer events will be tricky 
-           but we set via JS: prevent default and move, also we use touch/mouse event */
-        .btn-no.disabled-cursor {
-            /* purely aesthetic: still clickable by DOM, but we avoid it */
-        }
-
-        /* for very small screens */
-        @media (max-width: 380px) {
-            .btn { padding: 14px 28px; font-size: 24px; }
-            .btn-yes { padding: 14px 36px; }
-            .twinkle-face { width: 90px; height: 90px; }
+        /* for extra cuteness */
+        .heart {
+            color: #ff3b5c;
+            font-size: 2rem;
         }
     </style>
 </head>
 <body>
-    <div class="sparkle-bg"></div>
-    <!-- main valentine card -->
-    <div class="main-card">
-        <div class="shimmer"></div>
+    <!-- PAGE 1: SLIDER 0-100, must be 100 to proceed -->
+    <div id="page1" class="page">
+        <h1 class="love-question">❤️ How much do you love Jing Yew? ❤️</h1>
         
-        <!-- twinkle twinkle character zone – popmart style -->
-        <div class="character-area">
-            <div class="heart-ear">❤️</div>
-            <div class="heart-ear-right">🧡</div>
-            <div class="twinkle-face">
-                <div class="eyes">
-                    <div class="eye"><div class="pupil"></div></div>
-                    <div class="eye"><div class="pupil"></div></div>
-                </div>
-                <div class="blush"></div>
-                <div class="mouth"></div>
-            </div>
-            <div class="twinkle-name">✨ twinkle twinkle ✨</div>
+        <div class="slider-container">
+            <input type="range" id="loveSlider" min="0" max="100" value="50" step="1">
+            <div class="slider-value" id="sliderDisplay">50</div>
         </div>
 
-        <!-- question area -->
-        <div class="valentine-question">
-            <span class="question-text">🍓 be mine? 🍓</span>
-        </div>
+        <button id="nextBtn1" class="btn">Next</button>
+        <p id="tryAgainMsg" style="color: #c5385a; font-size: 1.5rem; margin-top: 25px; font-weight: bold; min-height: 50px;"></p>
+    </div>
 
-        <!-- BUTTON ZONE : runaway NO, stable YES -->
-        <div class="button-panel" id="buttonPanel">
-            <!-- YES button: stable, shows invite -->
-            <button class="btn btn-yes" id="yesBtn">YES 💘</button>
-            <!-- NO button: will run away from mouse / touch, not clickable effectively -->
-            <button class="btn btn-no" id="noBtn">NO 💔</button>
-        </div>
+    <!-- PAGE 2: Of course! + image + next -->
+    <div id="page2" class="page hidden">
+        <h1 style="font-size: 3rem; margin-bottom: 10px;">Of Course! 🥰</h1>
+        <!-- Image area – replace src with your own image. I've placed a placeholder hearts GIF -->
+        <img id="valentineImage" class="valentine-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23ffe2ec'/%3E%3Ctext x='90' y='160' font-size='34' fill='%23b34160' font-weight='bold'%3E❤️ JING YEW ❤️%3C/text%3E%3Ctext x='70' y='220' font-size='28' fill='%23b34160'%3EYOUR IMAGE HERE%3C/text%3E%3C/svg%3E"
+             alt="Lovely placeholder for Jing Yew">
+        <p style="font-size: 1.3rem; color: #a1445c;">( you can replace with your own picture )</p>
+        <button id="nextBtn2" class="btn small">Next →</button>
+    </div>
 
-        <!-- invite details (hidden until YES clicked) -->
-        <div id="inviteContainer" class="invite-card">
-            <div class="invite-text">
-                💕 yay! see you 💕<br>
-                <span>📅 14th FEB · 11:30 AM</span><br>
-                <span class="kafe-utu">☕ KAFE UTU ☕</span>
-                <div class="small-hearts">🌸 🍡 🍰</div>
-                <div style="font-size:20px; margin-top:12px; background: #ffe8f0; border-radius:30px; padding:8px;">
-                    twinkle twinkle happy valentine!
-                </div>
-            </div>
+    <!-- PAGE 3: Would you be my valentines? + yes/no, no is not functional -->
+    <div id="page3" class="page hidden">
+        <h1 style="font-size: 2.8rem; margin-bottom: 20px;">Would you be my valentines? 💘</h1>
+        <div class="two-btns">
+            <button id="yesBtn" class="btn yes-btn">YES</button>
+            <button id="noBtn" class="btn no-btn">No</button>
         </div>
+        <p style="margin-top: 50px; color: #b3586e; font-style: italic;">(the no button is just for show～)</p>
+    </div>
+
+    <!-- PAGE 4: See you on 14th Feb Plan: Kafe Utu and Skull Panda Exhibit -->
+    <div id="page4" class="page hidden">
+        <h1 style="font-size: 2.5rem;">💖 See you on 14th Feb! 💖</h1>
+        <div class="plan-details">
+            <span class="plan-text">📅 Plan:<br> Kafe Utu ☕<br> & <br> Skull Panda Exhibit 🧸</span>
+        </div>
+        <p style="font-size: 1.8rem; margin-top: 30px;">Can't wait! ✨</p>
+        <p class="heart">❤️ ❤️ ❤️</p>
+        <p style="color: #a13e57; margin-top: 35px;">– made with love for Jing Yew –</p>
     </div>
 
     <script>
         (function() {
             "use strict";
 
-            const noBtn = document.getElementById('noBtn');
+            // get all pages
+            const page1 = document.getElementById('page1');
+            const page2 = document.getElementById('page2');
+            const page3 = document.getElementById('page3');
+            const page4 = document.getElementById('page4');
+
+            // page1 elements
+            const loveSlider = document.getElementById('loveSlider');
+            const sliderDisplay = document.getElementById('sliderDisplay');
+            const nextBtn1 = document.getElementById('nextBtn1');
+            const tryAgainMsg = document.getElementById('tryAgainMsg');
+
+            // page2 next button
+            const nextBtn2 = document.getElementById('nextBtn2');
+
+            // page3 yes button (no button does nothing)
             const yesBtn = document.getElementById('yesBtn');
-            const inviteContainer = document.getElementById('inviteContainer');
-            const panel = document.getElementById('buttonPanel');
-            
-            // ---------------------------------------------------------
-            // TWINKLE TWINKLE CHARACTER: RUNAWAY NO BUTTON
-            // It flees from mouseenter, click, touchstart, mousemove over button.
-            // Also moves when user tries to click/tap — never clickable.
-            // Optimized for phone: touch events + pointer.
-            // ---------------------------------------------------------
-            
-            // get viewport boundaries to keep button inside panel approx
-            function getContainerRect() {
-                // using button panel as boundary – so no button stays within visible area
-                return panel.getBoundingClientRect();
+
+            // --- helper to show only one page ---
+            function showPage(pageToShow) {
+                // hide all
+                page1.classList.add('hidden');
+                page2.classList.add('hidden');
+                page3.classList.add('hidden');
+                page4.classList.add('hidden');
+                // show desired page
+                pageToShow.classList.remove('hidden');
             }
 
-            // main function to move the NO button to a random position inside panel
-            function moveNoButton() {
-                if (!noBtn) return;
-
-                // ensure button is not display none, get its dimensions
-                const btnRect = noBtn.getBoundingClientRect();
-                const panelRect = panel.getBoundingClientRect();
-
-                // panel relative dimensions (including possible scroll, but minimal)
-                const panelWidth = panelRect.width;
-                const panelHeight = panelRect.height;
-                
-                // button width/height
-                const btnWidth = btnRect.width;
-                const btnHeight = btnRect.height;
-
-                // avoid overflow: calculate max left, top relative to panel
-                // panel uses relative positioning, we will apply 'left' and 'top' relative to button's original position.
-                // but we need to set position: relative on panel? we keep panel as relative, button is absolute? 
-                // but currently buttons are inline, we must set noBtn to position: absolute to move freely inside panel.
-                // we set panel position: relative if not already, and button absolute.
-                
-                // style panel relative once
-                if (getComputedStyle(panel).position !== 'relative') {
-                    panel.style.position = 'relative';
-                }
-                // make noBtn absolute positioned
-                noBtn.style.position = 'absolute';
-                noBtn.style.zIndex = '30';
-                
-                // calculate safe max left/top: cannot go beyond panel right edge and bottom edge
-                // leave at least 5px margin from edges
-                let maxLeft = panelWidth - btnWidth - 5;
-                let maxTop = panelHeight - btnHeight - 5;
-                
-                // minimal boundaries (prevent from sticking to left/top edge)
-                let minLeft = 5;
-                let minTop = 5;
-
-                // If panel too small, adjust
-                if (maxLeft < minLeft) maxLeft = minLeft + 10;
-                if (maxTop < minTop) maxTop = minTop + 10;
-
-                // generate random positions within safe zone
-                let newLeft = Math.floor(Math.random() * (maxLeft - minLeft + 1) + minLeft);
-                let newTop = Math.floor(Math.random() * (maxTop - minTop + 1) + minTop);
-                
-                // apply positions (relative to panel)
-                noBtn.style.left = newLeft + 'px';
-                noBtn.style.top = newTop + 'px';
-                
-                // also ensure the YES button remains static (no absolute)
-                // make sure yes button not affected
-                yesBtn.style.position = 'relative';  // keep in flow
-                yesBtn.style.left = 'auto';
-                yesBtn.style.top = 'auto';
+            // --- slider live value ---
+            function updateSliderValue() {
+                sliderDisplay.textContent = loveSlider.value;
             }
+            loveSlider.addEventListener('input', updateSliderValue);
+            // initial display
+            updateSliderValue();
 
-            // initialize button absolute start position (first runaway)
-            function initNoButtonPosition() {
-                // set panel to relative
-                panel.style.position = 'relative';
-                noBtn.style.position = 'absolute';
-                noBtn.style.right = 'auto'; // reset
-                noBtn.style.bottom = 'auto';
-                
-                // put it at original spot near right side but within panel. initial left/top set.
-                // we set roughly original position: right side.
-                setTimeout(() => {
-                    // ensure it's inside after render
-                    const panelRect = panel.getBoundingClientRect();
-                    const btnRect = noBtn.getBoundingClientRect();
-                    noBtn.style.left = (panelRect.width - btnRect.width - 15) + 'px';
-                    noBtn.style.top = '5px';   // near top, away from yes
-                }, 10);
-            }
-
-            // event listeners: move on mouseenter, click, touchstart, and also mousemove over button? 
-            // to make it "keep running away from mouse" we also move on mousemove over noBtn.
-            function attachRunawayEvents() {
-                // move on mouse enter (cursor approaching)
-                noBtn.addEventListener('mouseenter', function(e) {
-                    e.preventDefault();
-                    moveNoButton();
-                    return false;
-                });
-
-                // move on mousemove over button - it's running away continuously!
-                noBtn.addEventListener('mousemove', function(e) {
-                    e.preventDefault();
-                    moveNoButton();
-                    return false;
-                });
-
-                // for touch phones: move on touchstart
-                noBtn.addEventListener('touchstart', function(e) {
-                    e.preventDefault(); // also prevents any click from materializing
-                    moveNoButton();
-                    return false;
-                }, { passive: false });
-
-                // also move on touchmove 
-                noBtn.addEventListener('touchmove', function(e) {
-                    e.preventDefault();
-                    moveNoButton();
-                    return false;
-                }, { passive: false });
-
-                // click should never happen, but to be super sure:
-                noBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    e.stopImmediatePropagation();
-                    moveNoButton();
-                    return false;
-                });
-
-                // also pointer events for safety
-                noBtn.addEventListener('pointerdown', function(e) {
-                    e.preventDefault();
-                    moveNoButton();
-                    return false;
-                });
-
-                noBtn.addEventListener('pointermove', function(e) {
-                    e.preventDefault();
-                    moveNoButton();
-                    return false;
-                });
-
-                // also move when tapped (try to stop all)
-                noBtn.addEventListener('touchcancel', function(e) {
-                    // just in case
-                });
-            }
-
-            // disable default action for no button thoroughly
-            function disableNoButtonDefault() {
-                // make sure it cannot be clicked via any native action
-                noBtn.disabled = false; // we don't want disabled style, but we cancel events
-                noBtn.setAttribute('aria-disabled', 'true');
-                
-                // Prevent all drag and selection
-                noBtn.addEventListener('dragstart', (e) => e.preventDefault());
-                noBtn.addEventListener('selectstart', (e) => e.preventDefault());
-            }
-
-            // YES BUTTON: show invite card, hide no? we keep no, just show invite
-            function setupYesButton() {
-                yesBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    // show invite with love
-                    inviteContainer.classList.add('show');
-                    
-                    // optional: make no button even more hidden? we just keep it but move away.
-                    moveNoButton(); // give it a final scoot
-                    
-                    // add sparkle to invite
-                    // you can also disable further yes clicks? no needed
-                });
-
-                yesBtn.addEventListener('touchstart', function(e) {
-                    // no need to move, just ensure we don't interfere with no
-                }, { passive: false });
-            }
-
-            // additional: move button on window resize to keep inside
-            window.addEventListener('resize', function() {
-                // ensure no button stays inside
-                if (noBtn.style.position === 'absolute') {
-                    // re-constrain
-                    const panelRect = panel.getBoundingClientRect();
-                    const btnRect = noBtn.getBoundingClientRect();
-                    let left = parseFloat(noBtn.style.left);
-                    let top = parseFloat(noBtn.style.top);
-                    if (isNaN(left)) left = 20;
-                    if (isNaN(top)) top = 20;
-                    
-                    const maxLeft = panelRect.width - btnRect.width - 5;
-                    const maxTop = panelRect.height - btnRect.height - 5;
-                    if (left > maxLeft) noBtn.style.left = maxLeft + 'px';
-                    if (top > maxTop) noBtn.style.top = maxTop + 'px';
-                    if (left < 5) noBtn.style.left = '5px';
-                    if (top < 5) noBtn.style.top = '5px';
+            // --- PAGE 1: next button logic ---
+            nextBtn1.addEventListener('click', function() {
+                const loveValue = parseInt(loveSlider.value, 10);
+                if (loveValue === 100) {
+                    // exactly 100? proceed to page 2
+                    showPage(page2);
+                    // clear any try again message
+                    tryAgainMsg.textContent = '';
+                } else {
+                    // less than 100 -> try again
+                    tryAgainMsg.textContent = '❌ Please try again! Slide to 100! ❌';
+                    // subtle shake effect (optional)
                 }
             });
 
-            // initial call: set absolute and initial pos
-            initNoButtonPosition();
-            attachRunawayEvents();
-            disableNoButtonDefault();
-            setupYesButton();
-
-            // additional: on load, move once to randomize starting position (but not too far)
-            window.addEventListener('load', function() {
-                setTimeout(() => {
-                    moveNoButton();
-                }, 50);
-                // also everytime user interacts with Yes, move no away (done)
+            // --- PAGE 2: next button -> page3 ---
+            nextBtn2.addEventListener('click', function() {
+                showPage(page3);
             });
 
-            // for phones: ensure that if the no button goes out of panel, fix
-            setInterval(function() {
-                // gentle correction if outside boundaries
-                if (noBtn && noBtn.style.position === 'absolute') {
-                    const panelRect = panel.getBoundingClientRect();
-                    const btnRect = noBtn.getBoundingClientRect();
-                    // check if button overlaps panel sufficiently
-                    let left = parseFloat(noBtn.style.left);
-                    let top = parseFloat(noBtn.style.top);
-                    if (isNaN(left)) left = 0;
-                    if (isNaN(top)) top = 0;
-                    
-                    const maxLeft = panelRect.width - btnRect.width - 5;
-                    const maxTop = panelRect.height - btnRect.height - 5;
-                    if (left > maxLeft) noBtn.style.left = Math.max(5, maxLeft) + 'px';
-                    if (top > maxTop) noBtn.style.top = Math.max(5, maxTop) + 'px';
-                    if (left < 5) noBtn.style.left = '5px';
-                    if (top < 5) noBtn.style.top = '5px';
+            // --- PAGE 3: YES button -> page4 (no is non-functional) ---
+            yesBtn.addEventListener('click', function() {
+                showPage(page4);
+            });
+
+            // The NO button has class 'no-btn' with pointer-events: none, already non-functional.
+            // but we also add no js action. just in case we disable any accidental click.
+            document.getElementById('noBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                // absolutely nothing. it's dead.
+            });
+
+            // --- Bonus: if user wants to replace the image easily - we provide a comment 
+            // But also you can just set new src. i'll add a convenience: double click on image shows hint.
+            const vImage = document.getElementById('valentineImage');
+            vImage.addEventListener('dblclick', function() {
+                alert('✨ Replace the src with your own image! (e.g., your photo with Jing Yew)');
+            });
+
+            // --- Extra: pressing enter on slider? not needed, but user-friendly.
+            // Also reset try again message when slider moves
+            loveSlider.addEventListener('input', function() {
+                if (tryAgainMsg.textContent !== '') {
+                    tryAgainMsg.textContent = '';  // clear the nag when user slides
                 }
-            }, 300);
+            });
+
+            // --- ensure that slider snap to 100? Not forcing but we display clearly.
+            // prefill hint: maybe set initial to 50, but user can slide.
+
+            // for testing/ elegance: we are on page1 by default (no hidden class on page1)
+            // But ensure body loads with page1 only. page1 has no hidden.
+            // However, if any other page accidentally visible? they have hidden class, fine.
+
+            // double-check hidden classes at start: page2,3,4 hidden.
+            // page1 should not have hidden. In case of emergency:
+            if (!page1.classList.contains('hidden')) {
+                // all good
+            } else {
+                // force page1 visible
+                showPage(page1);
+            }
+
+            // --- Also: if the user somehow tries to submit on slider enter? not needed.
+
+            // one more: we can set a nice message if user slides to 100
+            loveSlider.addEventListener('change', function() {
+                if (loveSlider.value == 100) {
+                    // optional happy hint
+                    tryAgainMsg.textContent = '✨ Perfect! Now press Next ✨';
+                    tryAgainMsg.style.color = '#ad3a5a';
+                } else {
+                    tryAgainMsg.textContent = '';
+                }
+            });
+
+            // small improvement: make no button really non-functional: disable pointer events already in css.
+            // just to be super sure, also prevent any default.
+            const noBtn = document.getElementById('noBtn');
+            noBtn.addEventListener('mousedown', (e) => e.preventDefault());
+            noBtn.addEventListener('click', (e) => e.preventDefault());
+
         })();
     </script>
 
-    <!-- tiny inline style for button initial fallback if js delayed -->
-    <noscript>
-        <style>.btn-no { left: 70% !important; position: relative; }</style>
-    </noscript>
+    <!-- 
+        INSTRUCTIONS:
+        1. Replace the image in page2 with your own: 
+           find <img id="valentineImage" ...> and change src="your-image-url.jpg"
+        2. That's it! All pages work as requested:
+            - Page1: slider must be 100 to enable next.
+            - Page2: "Of Course!" + image + next.
+            - Page3: two buttons, No is non-functional.
+            - Page4: Plan: Kafe Utu and Skull Panda Exhibit.
+        3. No external dependencies, pure HTML/CSS/JS.
+    -->
 </body>
 </html>
