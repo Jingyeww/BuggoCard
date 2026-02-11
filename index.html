@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Jing Yew ❤️</title>
+    <title>For BB Buggo ❤️</title>
     <!-- font & basic reset -->
     <style>
         * {
@@ -208,7 +208,7 @@
 <body>
     <!-- PAGE 1: SLIDER 0-100, must be 100 to proceed -->
     <div id="page1" class="page">
-        <h1 class="love-question">❤️ How much do you love Jing Yew? ❤️</h1>
+        <h1 class="love-question">❤️ How much do you love Buffilo? ❤️</h1>
         
         <div class="slider-container">
             <input type="range" id="loveSlider" min="0" max="100" value="50" step="1">
@@ -221,22 +221,25 @@
 
     <!-- PAGE 2: Of course! + image + next -->
     <div id="page2" class="page hidden">
-        <h1 style="font-size: 3rem; margin-bottom: 10px;">Of Course! 🥰</h1>
+        <h1 style="font-size: 3rem; margin-bottom: 10px;">Weally?? You wub the Buffilo! 🥰</h1>
         <!-- Image area – replace src with your own image. I've placed a placeholder hearts GIF -->
-        <img id="valentineImage" class="valentine-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23ffe2ec'/%3E%3Ctext x='90' y='160' font-size='34' fill='%23b34160' font-weight='bold'%3E❤️ JING YEW ❤️%3C/text%3E%3Ctext x='70' y='220' font-size='28' fill='%23b34160'%3EYOUR IMAGE HERE%3C/text%3E%3C/svg%3E"
+        <img id="valentineImage" class="valentine-img" src="data:image/svg+xml,%3Csvg xmlns='twinkleApple.png"
              alt="Lovely placeholder for Jing Yew">
-        <p style="font-size: 1.3rem; color: #a1445c;">( you can replace with your own picture )</p>
+        <!-- <p style="font-size: 1.3rem; color: #a1445c;">( you can replace with your own picture )</p> -->
         <button id="nextBtn2" class="btn small">Next →</button>
     </div>
 
     <!-- PAGE 3: Would you be my valentines? + yes/no, no is not functional -->
     <div id="page3" class="page hidden">
         <h1 style="font-size: 2.8rem; margin-bottom: 20px;">Would you be my valentines? 💘</h1>
+        <!-- Image area – replace src with your own image. I've placed a placeholder hearts GIF -->
+        <img id="valentineImage" class="valentine-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23ffe2ec'/%3E%3Ctext x='90' y='160' font-size='34' fill='%23b34160' font-weight='bold'%3E❤️ JING YEW ❤️%3C/text%3E%3Ctext x='70' y='220' font-size='28' fill='%23b34160'%3EYOUR IMAGE HERE%3C/text%3E%3C/svg%3E"
+             alt="Lovely placeholder for Jing Yew">
         <div class="two-btns">
             <button id="yesBtn" class="btn yes-btn">YES</button>
             <button id="noBtn" class="btn no-btn">No</button>
         </div>
-        <p style="margin-top: 50px; color: #b3586e; font-style: italic;">(the no button is just for show～)</p>
+        <!-- <p style="margin-top: 50px; color: #b3586e; font-style: italic;">(the no button is just for show～)</p> -->
     </div>
 
     <!-- PAGE 4: See you on 14th Feb Plan: Kafe Utu and Skull Panda Exhibit -->
@@ -301,7 +304,7 @@
                     tryAgainMsg.textContent = '';
                 } else {
                     // less than 100 -> try again
-                    tryAgainMsg.textContent = '❌ Please try again! Slide to 100! ❌';
+                    tryAgainMsg.textContent = '❌ So little? Please try again! ❌';
                     // subtle shake effect (optional)
                 }
             });
@@ -361,7 +364,7 @@
             loveSlider.addEventListener('change', function() {
                 if (loveSlider.value == 100) {
                     // optional happy hint
-                    tryAgainMsg.textContent = '✨ Perfect! Now press Next ✨';
+                    tryAgainMsg.textContent = '✨ That\'s more like it! ✨';
                     tryAgainMsg.style.color = '#ad3a5a';
                 } else {
                     tryAgainMsg.textContent = '';
