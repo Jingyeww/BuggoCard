@@ -174,11 +174,12 @@
         .two-btns {
             display: flex;
             justify-content: center;
+            align-items: center;
             gap: 30px;
             margin-top: 40px;
-            flex-wrap: wrap;
             position: relative;
             min-height: 120px;
+            width: 100%;
         }
 
         .yes-btn {
@@ -188,6 +189,7 @@
             padding: 16px 48px;
             position: relative;
             z-index: 10;
+            flex-shrink: 0;
         }
 
         .no-btn {
@@ -201,6 +203,7 @@
             position: absolute;
             transition: all 0.2s ease;
             z-index: 20;
+            flex-shrink: 0;
         }
 
         .no-btn:hover {
@@ -263,6 +266,13 @@
             margin: 0;
             padding: 10px;
         }
+        
+        /* No button safe zone - right side only */
+        .no-btn-safe-zone {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 <body>
@@ -272,7 +282,7 @@
         <img id="page1-img" class="first-img" src="https://raw.githubusercontent.com/Jingyeww/BuggoCard/main/twinklebuff.png"
              alt="Twinkle Buff" onerror="this.src='https://via.placeholder.com/400x400/ffb6c1/9f3e5c?text=Twinkle+Buff'">
         
-        <!-- COMMENT AREA - NOW ABOVE THE SLIDER -->
+        <!-- COMMENT AREA - ABOVE THE SLIDER -->
         <div class="comment-area">
             <p id="tryAgainMsg"></p>
         </div>
@@ -300,7 +310,8 @@
              alt="Twinkle Dino" onerror="this.src='https://via.placeholder.com/500x500/ffb6c1/9f3e5c?text=Twinkle+Dino'">
         <div class="two-btns" id="buttonContainer">
             <button id="yesBtn" class="btn yes-btn">YES</button>
-            <button id="noBtn" class="btn no-btn">No</button>
+            <!-- No button starts on the right -->
+            <button id="noBtn" class="btn no-btn" style="left: auto; right: 0;">No</button>
         </div>
         <p id="teaseMessage" class="tease-message"></p>
     </div>
@@ -310,9 +321,9 @@
         <h1 style="font-size: 2.5rem;">💖 See you on 14th Feb! 💖</h1>
         <img id="page4-img" class="fourth-img" src="https://raw.githubusercontent.com/Jingyeww/BuggoCard/main/twinklebirb.png"
              alt="Twinkle Birb" onerror="this.src='https://via.placeholder.com/500x500/ffb6c1/9f3e5c?text=Twinkle+Birb'">
-        <div class="plan-details">
+        <!-- <div class="plan-details">
             <span class="plan-text">📅 Plan:<br> Kafe Utu ☕<br> & <br> Skull Panda Exhibit 🧸</span>
-        </div>
+        </div> -->
         <p style="font-size: 1.8rem; margin-top: 30px;">Can't wait! ✨</p>
         <p class="heart">❤️ ❤️ ❤️</p>
         <p style="color: #a13e57; margin-top: 35px;">– made with love for Jing Yew –</p>
@@ -343,6 +354,9 @@
             const buttonContainer = document.getElementById('buttonContainer');
             const teaseMessage = document.getElementById('teaseMessage');
 
+            // Store YES button position
+            let yesBtnRect;
+
             // --- helper to show only one page ---
             function showPage(pageToShow) {
                 // hide all
@@ -359,18 +373,18 @@
                 const loveValue = parseInt(loveSlider.value, 10);
                 
                 if (loveValue === 100) {
-                    tryAgainMsg.textContent = '✨ Perfect! Now press Next ✨';
+                    tryAgainMsg.textContent = '✨ Dats Right! Must Wub the Buffilo! Now press Next ✨';
                     tryAgainMsg.style.color = '#ad3a5a';
                 } 
                 else if (loveValue <= 30) {
                     tryAgainMsg.textContent = '❌ Walao, so little? You don\'t wub buffilo! ❌';
                     tryAgainMsg.style.color = '#c5385a';
                 } 
-                else if (loveValue >= 31 && loveValue <= 50) {
+                else if (loveValue >= 31 && loveValue <= 45) {
                     tryAgainMsg.textContent = '❌ So little? More please! ❌';
                     tryAgainMsg.style.color = '#c5385a';
                 } 
-                else if (loveValue >= 51 && loveValue <= 60) {
+                else if (loveValue >= 46 && loveValue <= 60) {
                     tryAgainMsg.textContent = '❌ Seriously, half only? Try again! ❌';
                     tryAgainMsg.style.color = '#c5385a';
                 } 
@@ -417,7 +431,7 @@
                 resetNoButton();
             });
 
-            // --- 🏃‍♂️ THE RUNAWAY NO BUTTON! 🏃‍♂️ ---
+            // --- 🏃‍♂️ THE RUNAWAY NO BUTTON (NEVER OVERLAPS YES) 🏃‍♂️ ---
             function getRandomPosition() {
                 const container = buttonContainer;
                 const containerWidth = container.offsetWidth;
@@ -425,13 +439,61 @@
                 const noBtnWidth = noBtn.offsetWidth;
                 const noBtnHeight = noBtn.offsetHeight;
                 
-                // Calculate safe boundaries (keep button within container)
-                const maxX = Math.max(0, containerWidth - noBtnWidth - 20);
-                const maxY = Math.max(0, containerHeight - noBtnHeight - 20);
+                // Get YES button position
+                yesBtnRect = yesBtn.getBoundingClientRect();
+                const containerRect = container.getBoundingClientRect();
                 
-                // Generate random positions
-                const randomX = Math.min(maxX, Math.max(0, Math.floor(Math.random() * maxX)));
-                const randomY = Math.min(maxY, Math.max(0, Math.floor(Math.random() * maxY)));
+                // Calculate YES button position relative to container
+                const yesBtnLeft = yesBtnRect.left - containerRect.left;
+                const yesBtnRight = yesBtnRect.right - containerRect.left;
+                const yesBtnTop = yesBtnRect.top - containerRect.top;
+                const yesBtnBottom = yesBtnRect.bottom - containerRect.top;
+                
+                // Add padding around YES button (no-go zone)
+                const padding = 20; // pixels of buffer around YES button
+                const noGoLeft = Math.max(0, yesBtnLeft - padding);
+                const noGoRight = Math.min(containerWidth, yesBtnRight + padding);
+                const noGoTop = Math.max(0, yesBtnTop - padding);
+                const noGoBottom = Math.min(containerHeight, yesBtnBottom + padding);
+                
+                let attempts = 0;
+                const maxAttempts = 100;
+                let validPosition = false;
+                let randomX, randomY;
+                
+                // Try to find a position that doesn't overlap YES button
+                while (!validPosition && attempts < maxAttempts) {
+                    // Generate random position - PREFER RIGHT SIDE
+                    if (Math.random() > 0.5) {
+                        // Try right side first
+                        randomX = Math.floor(Math.random() * (containerWidth - noBtnWidth - 20));
+                        randomY = Math.floor(Math.random() * (containerHeight - noBtnHeight - 20));
+                    } else {
+                        // Random anywhere but avoid YES button
+                        randomX = Math.floor(Math.random() * (containerWidth - noBtnWidth - 20));
+                        randomY = Math.floor(Math.random() * (containerHeight - noBtnHeight - 20));
+                    }
+                    
+                    // Check if position overlaps YES button no-go zone
+                    const noBtnRight = randomX + noBtnWidth;
+                    const noBtnBottom = randomY + noBtnHeight;
+                    
+                    const overlapsHorizontally = (randomX < noGoRight && noBtnRight > noGoLeft);
+                    const overlapsVertically = (randomY < noGoBottom && noBtnBottom > noGoTop);
+                    
+                    validPosition = !(overlapsHorizontally && overlapsVertically);
+                    attempts++;
+                }
+                
+                // If we can't find a valid position, put it on the far right
+                if (!validPosition) {
+                    randomX = Math.max(0, containerWidth - noBtnWidth - 20);
+                    randomY = Math.floor(Math.random() * Math.max(0, containerHeight - noBtnHeight - 20));
+                }
+                
+                // Ensure within bounds
+                randomX = Math.min(Math.max(0, randomX), containerWidth - noBtnWidth - 10);
+                randomY = Math.min(Math.max(0, randomY), containerHeight - noBtnHeight - 10);
                 
                 return { x: randomX, y: randomY };
             }
@@ -440,6 +502,7 @@
                 const position = getRandomPosition();
                 noBtn.style.left = position.x + 'px';
                 noBtn.style.top = position.y + 'px';
+                noBtn.style.right = 'auto'; // Clear right positioning
                 
                 // Random teasing messages
                 const messages = [
@@ -452,7 +515,12 @@
                     '🎪 Over here!',
                     '🍃 Too fast!',
                     '😆 Haha!',
-                    '🎠 Nowhere!'
+                    '🎠 Nowhere!',
+                    '🚫 Not there!',
+                    '👉 Try right side!',
+                    '⬅️ Still no!',
+                    '⬆️ Too high!',
+                    '⬇️ Too low!'
                 ];
                 
                 const randomMessage = messages[Math.floor(Math.random() * messages.length)];
@@ -460,9 +528,10 @@
             }
 
             function resetNoButton() {
-                // Reset no button to default position
-                noBtn.style.left = '';
-                noBtn.style.top = '';
+                // Reset no button to default position (far right)
+                noBtn.style.left = 'auto';
+                noBtn.style.right = '0';
+                noBtn.style.top = '0';
                 noBtn.style.position = 'absolute';
                 teaseMessage.textContent = '';
             }
@@ -474,10 +543,10 @@
                 moveNoButton();
             });
 
-            // Also move when hovered (extra cheeky!)
+            // Also move when hovered (extra cheeky!) - but less chance
             noBtn.addEventListener('mouseover', function(e) {
-                // 70% chance to move on hover for extra fun
-                if (Math.random() > 0.3) {
+                // 50% chance to move on hover
+                if (Math.random() > 0.5) {
                     moveNoButton();
                 }
             });
