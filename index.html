@@ -249,38 +249,55 @@
             font-style: italic;
             min-height: 40px;
         }
+        
+        /* Comments above slider */
+        .comment-area {
+            margin-bottom: 20px;
+            min-height: 70px;
+        }
+        
+        #tryAgainMsg {
+            color: #c5385a;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0;
+            padding: 10px;
+        }
     </style>
 </head>
 <body>
     <!-- PAGE 1: SLIDER 0-100, must be 100 to proceed -->
     <div id="page1" class="page">
         <h1 class="love-question">❤️ How much do you love Buffilo? ❤️</h1>
-        <img id="page1-img" class="first-img" src="https://github.com/Jingyeww/BuggoCard/blob/main/twinklebuff.png"
-             alt="Twinkle Buff">
-        <!-- <img id="valentineImage" class="first-img" src="https://github.com/Jingyeww/BuggoCard/blob/main/twinklebuff.png"
-             alt="Twinkle Buff"> -->
+        <img id="page1-img" class="first-img" src="https://raw.githubusercontent.com/Jingyeww/BuggoCard/main/twinklebuff.png"
+             alt="Twinkle Buff" onerror="this.src='https://via.placeholder.com/400x400/ffb6c1/9f3e5c?text=Twinkle+Buff'">
+        
+        <!-- COMMENT AREA - NOW ABOVE THE SLIDER -->
+        <div class="comment-area">
+            <p id="tryAgainMsg"></p>
+        </div>
+        
         <div class="slider-container">
             <input type="range" id="loveSlider" min="0" max="100" value="0" step="1">
             <div class="slider-value" id="sliderDisplay">0</div>
         </div>
 
         <button id="nextBtn1" class="btn">Next</button>
-        <p id="tryAgainMsg" style="color: #c5385a; font-size: 1.5rem; margin-top: 25px; font-weight: bold; min-height: 50px;"></p>
     </div>
 
     <!-- PAGE 2: Of course! + image + next -->
     <div id="page2" class="page hidden">
         <h1 style="font-size: 3rem; margin-bottom: 10px;">Weally?? You wub the Buffilo! 🥰</h1>
-        <img id="page2-img" class="second-img" src="https://github.com/Jingyeww/BuggoCard/blob/main/twinkleapple.png"
-             alt="Twinkle Apple">
+        <img id="page2-img" class="second-img" src="https://raw.githubusercontent.com/Jingyeww/BuggoCard/main/twinkleapple.png"
+             alt="Twinkle Apple" onerror="this.src='https://via.placeholder.com/300x300/ffb6c1/9f3e5c?text=Twinkle+Apple'">
         <button id="nextBtn2" class="btn small">Next →</button>
     </div>
 
     <!-- PAGE 3: Would you be my valentines? + yes/no, no button runs away! -->
     <div id="page3" class="page hidden">
         <h1 style="font-size: 2.8rem; margin-bottom: 20px;">Would you be my valentines? 💘</h1>
-        <img id="page3-img" class="third-img" src="https://github.com/Jingyeww/BuggoCard/blob/main/twinkledino.png"
-             alt="Twinkle Dino">
+        <img id="page3-img" class="third-img" src="https://raw.githubusercontent.com/Jingyeww/BuggoCard/main/twinkledino.png"
+             alt="Twinkle Dino" onerror="this.src='https://via.placeholder.com/500x500/ffb6c1/9f3e5c?text=Twinkle+Dino'">
         <div class="two-btns" id="buttonContainer">
             <button id="yesBtn" class="btn yes-btn">YES</button>
             <button id="noBtn" class="btn no-btn">No</button>
@@ -291,11 +308,11 @@
     <!-- PAGE 4: See you on 14th Feb Plan: Kafe Utu and Skull Panda Exhibit -->
     <div id="page4" class="page hidden">
         <h1 style="font-size: 2.5rem;">💖 See you on 14th Feb! 💖</h1>
-        <img id="page4-img" class="fourth-img" src="https://github.com/Jingyeww/BuggoCard/blob/main/twinklebirb.png"
-             alt="Twinkle Birb">
-        <!-- <div class="plan-details">
+        <img id="page4-img" class="fourth-img" src="https://raw.githubusercontent.com/Jingyeww/BuggoCard/main/twinklebirb.png"
+             alt="Twinkle Birb" onerror="this.src='https://via.placeholder.com/500x500/ffb6c1/9f3e5c?text=Twinkle+Birb'">
+        <div class="plan-details">
             <span class="plan-text">📅 Plan:<br> Kafe Utu ☕<br> & <br> Skull Panda Exhibit 🧸</span>
-        </div> -->
+        </div>
         <p style="font-size: 1.8rem; margin-top: 30px;">Can't wait! ✨</p>
         <p class="heart">❤️ ❤️ ❤️</p>
         <p style="color: #a13e57; margin-top: 35px;">– made with love for Jing Yew –</p>
@@ -508,5 +525,3 @@
     </script>
 </body>
 </html>
-
-
