@@ -482,12 +482,12 @@
                     const gap = 40;  // <--- INCREASE or DECREASE this number
                     
                     // 2. Change HORIZONTAL position (left/right)
-                    // Current: Right side of YES button
-                    const startX = (yesBtnRect.right - containerRect.left) + gap;
+                    // // Current: Right side of YES button
+                    // const startX = (yesBtnRect.right - containerRect.left) + gap;
                     
-                    // 3. Change VERTICAL position (up/down)
-                    // Current: Same level as YES button
-                    const startY = (yesBtnRect.top - containerRect.top);
+                    // // 3. Change VERTICAL position (up/down)
+                    // // Current: Same level as YES button
+                    // const startY = (yesBtnRect.top - containerRect.top);
                     
                     // Alternative positions - REPLACE the lines above with these:
                     
@@ -500,8 +500,8 @@
                     // const startY = (yesBtnRect.bottom - containerRect.top) + 20;
                     
                     // Option C: Far right corner
-                    // const startX = containerWidth - noBtnWidth - 20;
-                    // const startY = 20;
+                    const startX = containerWidth - noBtnWidth - 20;
+                    const startY = 20;
                     
                     // Option D: Far left corner
                     // const startX = 20;
@@ -593,6 +593,7 @@
     </script>
 </body>
 </html>
+
 
 
 
