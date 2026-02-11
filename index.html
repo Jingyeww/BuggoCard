@@ -441,7 +441,7 @@
                 const yesBtnBottom = yesBtnRect.bottom - containerRect.top;
                 
                 // Add padding around YES button (no-go zone)
-                const padding = 20;
+                const padding = 100;
                 const noGoLeft = Math.max(0, yesBtnLeft - padding);
                 const noGoRight = Math.min(containerWidth, yesBtnRight + padding);
                 const noGoTop = Math.max(0, yesBtnTop - padding);
@@ -474,12 +474,12 @@
                     // Try to put it on the opposite side of YES button
                     if (yesBtnLeft < containerWidth / 2) {
                         // YES is on left, put NO on right
-                        randomX = Math.max(containerWidth - noBtnWidth - 20, containerWidth / 2);
+                        randomX = Math.max(containerWidth - noBtnWidth - 50, containerWidth / 2);
                     } else {
                         // YES is on right, put NO on left
-                        randomX = Math.min(20, containerWidth / 4);
+                        randomX = Math.min(50, containerWidth / 4);
                     }
-                    randomY = Math.floor(Math.random() * Math.max(0, containerHeight - noBtnHeight - 20));
+                    randomY = Math.floor(Math.random() * Math.max(0, containerHeight - noBtnHeight - 50));
                 }
                 
                 // Ensure within bounds
@@ -536,7 +536,7 @@
                 
                 // Start somewhere on the right side
                 const startX = Math.max(containerWidth - noBtnWidth - 40, containerWidth / 2);
-                const startY = Math.floor(Math.random() * Math.max(1, containerHeight - noBtnHeight - 20));
+                const startY = Math.floor(Math.random() * Math.max(1, containerHeight - noBtnHeight - 50));
                 
                 noBtn.style.left = startX + 'px';
                 noBtn.style.top = startY + 'px';
@@ -553,7 +553,7 @@
             // Also move when hovered (extra cheeky!)
             noBtn.addEventListener('mouseover', function(e) {
                 // 70% chance to move on hover for more fun!
-                if (Math.random() > 0.3) {
+                if (Math.random() > 0.9) {
                     moveNoButton();
                 }
             });
@@ -601,3 +601,4 @@
     </script>
 </body>
 </html>
+
