@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, shrink-to-fit=no">
-    <title>✨ twinkle twinkle · popmart valentine ✨</title>
-    <!-- 4-page mobile · buffilo love meter + running no button + skull panda date -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>🍓 twinkle twinkle · valentine date</title>
+    <!-- PopMart / Twinkle Twinkle aesthetic: soft pinks, kawaii, playful, sparkles -->
     <style>
-        /* === TWINKLE TWINKLE POP MART – MOBILE PERFECT === */
         * {
             margin: 0;
             padding: 0;
@@ -14,20 +13,20 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        html, body {
-            width: 100%;
-            min-height: 100vh;
-            background: radial-gradient(circle at 30% 30%, #ffdde1, #f5b3c1);
-            font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        body {
+            background: radial-gradient(circle at 10% 30%, #ffd9e6, #ffb3c6);
+            font-family: 'Segoe UI', 'Quicksand', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 8px;
+            min-height: 100vh;
+            margin: 0;
+            padding: 16px;
             position: relative;
-            touch-action: pan-y; /* smooth vertical scroll, no zoom interference */
+            overflow-x: hidden;
         }
 
-        /* star field – extra sparkle */
+        /* sparkle overlay – twinkle twinkle magic */
         .sparkle-bg {
             position: fixed;
             top: 0;
@@ -35,560 +34,588 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
+            background: url('data:image/svg+xml;utf8,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="15" r="2.5" fill="white" opacity="0.7"/><circle cx="45" cy="8" r="2" fill="%23ffe0f0" opacity="0.9"/><circle cx="30" cy="50" r="3" fill="%23fff0f5" opacity="0.8"/><circle cx="52" cy="40" r="2" fill="white" opacity="0.6"/><circle cx="5" cy="48" r="2.2" fill="%23ffe4ed" opacity="0.7"/><path d="M22 12 L24 16 L28 16 L25 19 L26 24 L22 21 L18 24 L19 19 L16 16 L20 16 Z" fill="%23fff9e6" opacity="0.5" transform="scale(0.6)"/><path d="M38 32 L40 36 L44 36 L41 39 L42 44 L38 41 L34 44 L35 39 L32 36 L36 36 Z" fill="%23ffe0f0" opacity="0.5" transform="scale(0.5)"/></svg>') repeat;
+            background-size: 180px 180px;
+            opacity: 0.5;
             z-index: 0;
         }
 
-        .starlet {
-            position: absolute;
-            background: #fffce6;
-            border-radius: 50%;
-            box-shadow: 0 0 16px #ff9eb5;
-            width: 4px;
-            height: 4px;
-            opacity: 0.7;
-            animation: shimmer 3.5s infinite alternate;
-        }
-
-        .heart-float {
-            position: absolute;
-            font-size: 1.6rem;
-            color: #ff8c9d;
-            text-shadow: 0 0 18px #ff4d6a;
-            animation: levitate 5s infinite alternate;
-        }
-
-        @keyframes shimmer {
-            0% { opacity: 0.3; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1.4); background: #ffe0f0; }
-        }
-        @keyframes levitate {
-            0% { transform: translateY(0px) rotate(0deg); }
-            100% { transform: translateY(-30px) rotate(8deg); }
-        }
-
-        /* main card – fits any small screen, soft blur */
-        .valentine-card {
-            max-width: 400px;
+        .main-card {
+            max-width: 420px;
             width: 100%;
-            background: rgba(255, 242, 247, 0.75);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border-radius: 52px 52px 52px 52px;
-            border: 2px solid rgba(255, 210, 220, 0.9);
-            box-shadow: 0 16px 36px rgba(180, 70, 90, 0.25), inset 0 0 40px #ffe2ec;
-            padding: 28px 20px;
+            background: rgba(255, 245, 240, 0.75);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 48px 48px 42px 42px;
+            border: 2px solid rgba(255, 220, 240, 0.8);
+            box-shadow: 0 20px 35px rgba(245, 150, 170, 0.2), 0 0 0 4px rgba(255, 230, 240, 0.5);
+            padding: 28px 24px 40px;
             position: relative;
             z-index: 10;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
+            text-align: center;
         }
 
-        .page {
-            display: none;
+        /* twinkle twinkle character — hand-drawn cute style */
+        .character-area {
+            position: relative;
+            display: flex;
             flex-direction: column;
             align-items: center;
-            width: 100%;
+            margin-bottom: 18px;
         }
 
-        .page.active {
+        .twinkle-face {
+            background: #ffdfc5;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 5px solid #ffb0b0;
+            box-shadow: 0 8px 0 #cc8f8f, 0 12px 25px #ffa5a5;
             display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 8px;
         }
 
-        /* twinkle character */
-        .twinkle-emoji {
-            font-size: 5.4rem;
-            line-height: 1;
-            filter: drop-shadow(0 8px 14px #ff6b8b);
-            margin-bottom: 4px;
+        .eyes {
+            display: flex;
+            gap: 22px;
+            margin-top: -5px;
         }
 
-        h2, .question-big {
-            font-size: 2rem;
-            font-weight: 800;
-            color: #57202c;
-            text-shadow: 0 4px 8px #fff0f5;
-            text-align: center;
-            margin: 8px 0 4px;
-            word-break: break-word;
+        .eye {
+            background: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 3px solid #835e5e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .buffalo-highlight {
-            background: #ffb6c1c0;
+        .pupil {
+            background: #4a2b2b;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            transition: 0.1s;
+            border: 2px solid #926b6b;
+        }
+
+        .blush {
+            background: #ffb6b6;
+            width: 18px;
+            height: 8px;
+            border-radius: 20px;
+            position: absolute;
+            bottom: 32px;
+            left: 20px;
+            opacity: 0.7;
+            box-shadow: 50px 0 #ffb6b6;
+        }
+
+        .mouth {
+            background: #ff7b8c;
+            width: 32px;
+            height: 18px;
+            border-radius: 0 0 30px 30px;
+            margin-top: 6px;
+            border: 2px solid #b15454;
+        }
+
+        .heart-ear {
+            position: absolute;
+            top: -20px;
+            left: 5px;
+            font-size: 38px;
+            transform: rotate(-15deg);
+            filter: drop-shadow(2px 6px 0 rgba(255, 100, 150, 0.3));
+        }
+
+        .heart-ear-right {
+            position: absolute;
+            top: -20px;
+            right: 5px;
+            font-size: 38px;
+            transform: rotate(15deg);
+            filter: drop-shadow(2px 6px 0 rgba(255, 100, 150, 0.3));
+        }
+
+        .twinkle-name {
+            font-size: 26px;
+            font-weight: 700;
+            color: #ad4b6e;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 0 #ffe4ed;
+            margin-top: -5px;
+            background: rgba(255, 230, 240, 0.7);
+            padding: 4px 18px;
+            border-radius: 50px;
+            border: 2px dashed #ff92a5;
+            backdrop-filter: blur(2px);
+        }
+
+        .valentine-question {
+            font-size: 32px;
+            font-weight: 900;
+            color: #6e2c47;
+            margin: 18px 0 10px;
+            text-shadow: 0 2px 0 white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .question-text {
+            background: #fff4f9;
             padding: 8px 24px;
             border-radius: 60px;
-            font-size: 2rem;
-            color: #39171e;
             border: 3px solid white;
-            margin: 12px 0;
+            box-shadow: 0 5px 0 #e7a1b0;
+            font-size: 28px;
+            letter-spacing: 2px;
         }
 
-        /* LOVE SLIDER – big thumb for fat fingers */
-        .slider-container {
-            width: 100%;
-            margin: 32px 0 24px;
-        }
-
-        .love-meter {
-            width: 100%;
-            height: 22px;
-            -webkit-appearance: none;
-            appearance: none;
-            background: linear-gradient(to right, #ffb3c1, #ff4d6a);
-            border-radius: 40px;
-            outline: none;
-            border: 3px solid white;
-            box-shadow: 0 2px 12px #c06676;
-        }
-
-        .love-meter::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 56px;
-            height: 56px;
-            background: #fff2f5;
-            border: 5px solid #e6324e;
-            border-radius: 50%;
-            box-shadow: 0 6px 0 #811f31, 0 10px 28px #b32e4a;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23d62839"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
-            background-size: 58%;
-            background-position: center 55%;
-            background-repeat: no-repeat;
-            cursor: pointer;
-        }
-
-        .percent-box {
-            font-size: 3.2rem;
-            font-weight: 900;
-            color: #ad1f36;
-            background: #fff6f9ee;
-            padding: 8px 32px;
-            border-radius: 80px;
-            display: inline-block;
-            border: 3px solid #ffa5b9;
-            margin-top: 10px;
-            text-shadow: 0 0 10px white;
-        }
-
-        /* cheeky twinkle message */
-        .feedback-msg {
-            background: #fff1f5f0;
-            border: 4px dashed #ff6b8b;
-            border-radius: 60px;
-            padding: 16px 18px;
-            font-size: 1.5rem;
-            color: #4a1e28;
-            margin: 12px 0 0;
-            width: 100%;
-            text-align: center;
-            backdrop-filter: blur(4px);
-            font-weight: 600;
+        .button-panel {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            margin: 30px 0 20px;
+            flex-wrap: wrap;
+            position: relative;
+            min-height: 80px;
         }
 
         .btn {
-            background: #ff879a;
             border: none;
-            padding: 16px 20px;
-            font-size: 2rem;
-            font-weight: 700;
+            background: white;
+            padding: 16px 36px;
             border-radius: 80px;
-            color: white;
-            text-shadow: 0 3px 0 #922436;
-            box-shadow: 0 10px 0 #6a2832, 0 14px 28px #ff99aa;
-            border: 3px solid #ffeef0;
-            margin-top: 28px;
-            width: 100%;
-            letter-spacing: 3px;
-            transition: 0.06s;
+            font-size: 28px;
+            font-weight: bold;
+            color: #4f2d3f;
+            box-shadow: 0 7px 0 #c28181, 0 10px 25px #ffb8b8;
+            border: 3px solid #ffafc0;
+            transition: all 0.06s linear;
+            letter-spacing: 2px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            -webkit-appearance: none;
-        }
-
-        .btn:active {
-            transform: translateY(8px);
-            box-shadow: 0 2px 0 #6a2832, 0 16px 32px #ffa5b9;
-        }
-
-        /* page 3 – yes + no (no runs away) */
-        .button-pair {
-            position: relative;
-            width: 100%;
-            min-height: 140px;
-            margin: 24px 0 12px;
-        }
-
-        .yes-fixed {
-            position: absolute;
-            left: 0%;
-            top: 10px;
-            width: 45%;
-            z-index: 25;
+            background: #fff5f7;
+            flex: 0 0 auto;
+            touch-action: none; /* helps with touch movement */
         }
 
         .btn-yes {
-            background: #ffa5b9;
-            color: #381c22;
-            font-size: 2rem;
-            padding: 16px 8px;
-            width: 100%;
-            border: 4px solid white;
-            border-radius: 60px;
-            box-shadow: 0 10px 0 #913a47;
-            font-weight: bold;
-        }
-
-        .no-mobile-wrapper {
-            position: absolute;
-            width: 45%;
-            pointer-events: auto;
-            transition: left 0.2s ease, top 0.2s ease;
-            z-index: 30;
-            left: 55%;
-            top: 10px;
+            background: #ffafc0;
+            border-color: #ff4a6e;
+            color: white;
+            text-shadow: 0 1px 0 #b34b5e;
+            box-shadow: 0 7px 0 #b85872, 0 12px 25px #ff8899;
+            padding: 16px 44px;
         }
 
         .btn-no {
-            background: #a69c9c;
-            color: #2c1b1d;
-            font-size: 2rem;
-            padding: 16px 8px;
-            width: 100%;
-            border: 4px solid #e6d3d3;
-            border-radius: 60px;
-            box-shadow: 0 10px 0 #584344;
-            pointer-events: none;  /* no direct clicks */
-            font-weight: bold;
+            background: #ffe3e3;
+            color: #5e3a3a;
+            border-color: #ffb0b0;
+            box-shadow: 0 7px 0 #c28181, 0 10px 25px #ffb8b8;
+            position: relative;
+            will-change: left, top; /* performance */
+            transition: left 0.08s ease, top 0.08s ease; /* smooth runaway */
         }
 
-        /* invitation card – cute details */
-        .invite-box {
-            background: #fff3f7f2;
-            border-radius: 44px;
-            padding: 24px 20px;
-            width: 100%;
-            border: 6px solid #ffb3c6;
-            box-shadow: inset 0 0 28px #ffe5ec;
-            margin-top: 20px;
+        /* invite card — initially hidden */
+        .invite-card {
+            margin-top: 30px;
+            background: #ffecf0;
+            border: 5px solid white;
+            border-radius: 70px 70px 40px 40px;
+            padding: 28px 20px;
+            box-shadow: 0 12px 0 #dc8e9e, inset 0 -3px 0 rgba(0,0,0,0.03);
+            display: none;
+            backdrop-filter: blur(10px);
+            animation: pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        .invite-head {
-            font-size: 2rem;
-            color: #691c2a;
+        .invite-card.show {
+            display: block;
+        }
+
+        .invite-text {
+            font-size: 26px;
             font-weight: 800;
+            color: #892e4c;
+            line-height: 1.4;
         }
 
-        .venue-item {
-            background: white;
-            border-radius: 60px;
-            padding: 16px 20px;
-            margin: 16px 0;
-            font-size: 1.6rem;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border: 3px solid #ff8da1;
-            font-weight: 600;
+        .invite-text span {
+            background: #ffd3d3;
+            padding: 5px 18px;
+            border-radius: 50px;
+            display: inline-block;
+            margin: 6px 0;
+            border: 3px solid #fff7f7;
         }
 
-        /* responsive tweaks */
+        .kafe-utu {
+            font-size: 34px;
+            font-weight: 900;
+            color: #b3415c;
+            text-shadow: 0 3px 0 white;
+            letter-spacing: 3px;
+            background: #fffbe3;
+            padding: 6px 12px;
+            border-radius: 30px;
+            margin-top: 14px;
+            border: 4px dotted #ff7a8f;
+        }
+
+        .small-hearts {
+            font-size: 30px;
+            margin-top: 8px;
+            letter-spacing: 12px;
+        }
+
+        @keyframes pop {
+            0% { transform: scale(0.7); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* mobile safe runaway area – container relative */
+        .runaway-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* extra sparkles */
+        .shimmer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.4) 0%, transparent 60%);
+            pointer-events: none;
+            border-radius: inherit;
+        }
+
+        /* no button forced not clickable? we make it escape but also pointer events will be tricky 
+           but we set via JS: prevent default and move, also we use touch/mouse event */
+        .btn-no.disabled-cursor {
+            /* purely aesthetic: still clickable by DOM, but we avoid it */
+        }
+
+        /* for very small screens */
         @media (max-width: 380px) {
-            .valentine-card { padding: 20px 16px; }
-            h2 { font-size: 1.8rem; }
-            .btn { font-size: 1.8rem; }
+            .btn { padding: 14px 28px; font-size: 24px; }
+            .btn-yes { padding: 14px 36px; }
+            .twinkle-face { width: 90px; height: 90px; }
         }
-
-        /* extra utility */
-        .text-glow { text-shadow: 0 0 18px #ffe6f0; }
     </style>
 </head>
 <body>
-
-<!-- sparkle overlay (pure css, lightweight) -->
-<div class="sparkle-bg" id="sparkleBg"></div>
-
-<!-- main card -->
-<div class="valentine-card">
-
-    <!-- ========== PAGE 1 – LOVE METER (0-100) ========= -->
-    <div id="page1" class="page active">
-        <div class="twinkle-emoji">✨🐃✨</div>
-        <h2>how much do you love</h2>
-        <span class="buffalo-highlight">BUFFILO ?</span>
+    <div class="sparkle-bg"></div>
+    <!-- main valentine card -->
+    <div class="main-card">
+        <div class="shimmer"></div>
         
-        <div class="slider-container">
-            <input type="range" id="loveSlider" class="love-meter" min="0" max="100" value="44" step="1">
-            <div style="display: flex; justify-content: center; align-items: baseline;">
-                <span id="lovePercent" class="percent-box">44</span>
-                <span style="font-size: 3rem; margin-left: 6px;">❤️</span>
+        <!-- twinkle twinkle character zone – popmart style -->
+        <div class="character-area">
+            <div class="heart-ear">❤️</div>
+            <div class="heart-ear-right">🧡</div>
+            <div class="twinkle-face">
+                <div class="eyes">
+                    <div class="eye"><div class="pupil"></div></div>
+                    <div class="eye"><div class="pupil"></div></div>
+                </div>
+                <div class="blush"></div>
+                <div class="mouth"></div>
             </div>
+            <div class="twinkle-name">✨ twinkle twinkle ✨</div>
         </div>
 
-        <div id="sadMessage" class="feedback-msg">
-            💔 slide to 100, only 100 is real love!
+        <!-- question area -->
+        <div class="valentine-question">
+            <span class="question-text">🍓 be mine? 🍓</span>
         </div>
 
-        <button id="confirmLove" class="btn">✨ CONFIRM ✨</button>
-    </div>
-
-    <!-- ========== PAGE 2 – I KNEW IT! ========= -->
-    <div id="page2" class="page">
-        <div class="twinkle-emoji">😎✨💯</div>
-        <h2 style="font-size: 2.8rem;">I KNEW IT!</h2>
-        <div style="font-size: 2.4rem; background: #ffd9e2; padding: 10px 30px; border-radius: 60px; margin: 24px 0; border: 4px solid white;">
-            💕 100% buffilo love 💕
+        <!-- BUTTON ZONE : runaway NO, stable YES -->
+        <div class="button-panel" id="buttonPanel">
+            <!-- YES button: stable, shows invite -->
+            <button class="btn btn-yes" id="yesBtn">YES 💘</button>
+            <!-- NO button: will run away from mouse / touch, not clickable effectively -->
+            <button class="btn btn-no" id="noBtn">NO 💔</button>
         </div>
-        <div style="font-size: 2.4rem;">✨💖✨</div>
-        <button id="goToProposal" class="btn">💘 NEXT 💘</button>
-    </div>
 
-    <!-- ========== PAGE 3 – WILL YOU BE MY VALENTINE? (no runs) ========= -->
-    <div id="page3" class="page">
-        <div style="font-size: 5rem;">🥺💘</div>
-        <h2 style="font-size: 2rem; margin-top: 4px;">will you be my valentines?</h2>
-        <div style="font-size: 2.8rem;">✨💌✨</div>
-
-        <!-- yes + no container (mobile-optimized fleeing) -->
-        <div class="button-pair">
-            <!-- YES button – left side -->
-            <div class="yes-fixed">
-                <button id="yesButton" class="btn-yes">💖 YES</button>
+        <!-- invite details (hidden until YES clicked) -->
+        <div id="inviteContainer" class="invite-card">
+            <div class="invite-text">
+                💕 yay! see you 💕<br>
+                <span>📅 14th FEB · 11:30 AM</span><br>
+                <span class="kafe-utu">☕ KAFE UTU ☕</span>
+                <div class="small-hearts">🌸 🍡 🍰</div>
+                <div style="font-size:20px; margin-top:12px; background: #ffe8f0; border-radius:30px; padding:8px;">
+                    twinkle twinkle happy valentine!
+                </div>
             </div>
-            <!-- NO wrapper – runs away -->
-            <div id="noWrapperMobile" class="no-mobile-wrapper">
-                <button id="noButton" class="btn-no">💔 no</button>
-            </div>
-        </div>
-
-        <div style="margin-top: 140px; background: #ffeef2e0; padding: 16px; border-radius: 60px; font-size: 1.4rem; color: #5c2a33; width: 100%; text-align: center; backdrop-filter: blur(4px); border: 2px solid #ffb3c6;">
-            ⭐ the 'no' is shy … it runs away! ⭐
         </div>
     </div>
 
-    <!-- ========== PAGE 4 – VALENTINE INVITATION (KAFE UTU + SKULL PANDA) ========= -->
-    <div id="page4" class="page">
-        <div style="font-size: 4.6rem;">🎉✨💖</div>
-        <h2 style="font-size: 2.2rem; margin-bottom: 8px;">YOU SAID YES!</h2>
-        <div class="invite-box">
-            <div class="invite-head">💌 YOU'RE INVITED 💌</div>
-            <div class="venue-item">
-                <span style="font-size: 2.8rem;">☕</span> KAFE UTU · coffee date
-            </div>
-            <div class="venue-item">
-                <span style="font-size: 2.8rem;">🐼</span> SKULL PANDA exhibition
-            </div>
-            <div style="background: #ffccd5; border-radius: 60px; padding: 16px; font-size: 1.7rem; margin-top: 12px; border: 3px solid #ff6b7f;">
-                💘 feb 14 · 3pm 💘<br><span style="font-size: 1.3rem;">bring your twinkle self!</span>
-            </div>
-        </div>
-        <div style="margin-top: 20px; font-size: 2.6rem;">✨🐃✨</div>
-    </div>
-</div>
+    <script>
+        (function() {
+            "use strict";
 
-<script>
-    (function(){
-        "use strict";
-
-        // --- TWINKLE BACKGROUND (mobile friendly, less nodes) ---
-        function createSparkles() {
-            const bg = document.getElementById('sparkleBg');
-            bg.innerHTML = '';
-            for (let i=0;i<48;i++) {
-                let star = document.createElement('div');
-                star.className = 'starlet';
-                star.style.left = Math.random()*100 + '%';
-                star.style.top = Math.random()*100 + '%';
-                star.style.width = (Math.random()*9+3)+'px';
-                star.style.height = star.style.width;
-                star.style.animationDelay = (Math.random()*4)+'s';
-                bg.appendChild(star);
-            }
-            for (let i=0;i<18;i++) {
-                let h = document.createElement('div');
-                h.className = 'heart-float';
-                h.innerHTML = ['✨','💖','🐃','🌸','💘','⭐','🧸'][Math.floor(Math.random()*7)];
-                h.style.left = Math.random()*100+'%';
-                h.style.top = Math.random()*100+'%';
-                h.style.fontSize = (Math.random()*22+18)+'px';
-                h.style.animationDelay = (Math.random()*5)+'s';
-                bg.appendChild(h);
-            }
-        }
-        createSparkles();
-
-        // --- PAGE CONTROL ---
-        const p1 = document.getElementById('page1');
-        const p2 = document.getElementById('page2');
-        const p3 = document.getElementById('page3');
-        const p4 = document.getElementById('page4');
-
-        function show(page) {
-            p1.classList.remove('active');
-            p2.classList.remove('active');
-            p3.classList.remove('active');
-            p4.classList.remove('active');
-            page.classList.add('active');
-        }
-
-        // --- PAGE 1 SLIDER + 100% VALIDATION ---
-        const slider = document.getElementById('loveSlider');
-        const percentSpan = document.getElementById('lovePercent');
-        const sadEl = document.getElementById('sadMessage');
-        const confirmBtn = document.getElementById('confirmLove');
-
-        function updateSlider() {
-            percentSpan.innerText = slider.value;
-        }
-        slider.addEventListener('input', updateSlider);
-        updateSlider();
-
-        confirmBtn.addEventListener('click', function(e){
-            e.preventDefault();
-            let val = parseInt(slider.value,10);
-            if (val === 100) {
-                show(p2);
-            } else {
-                // sad cheeky twinkle
-                let msgs = [
-                    '😢 only 100 is buffilo love!', 
-                    '💔 twinkle is sad … slide to 100!',
-                    '🐃 buffilo wants 100, not '+val+'!',
-                    '🥺 cheeky! try again (100 only)',
-                    '✨ 100% or nothing! ✨'
-                ];
-                sadEl.innerHTML = '💧 sad twinkle · ' + msgs[Math.floor(Math.random() * msgs.length)];
-                // vibrate if supported (optional, just for fun)
-                if (navigator.vibrate) navigator.vibrate(20);
-            }
-        });
-
-        // --- PAGE 2: next button ---
-        document.getElementById('goToProposal').addEventListener('click', function(){
-            show(p3);
-            // reset fleeing button position when page 3 appears
-            moveNoButton(true);
-        });
-
-        // --- PAGE 3: EVASIVE NO BUTTON (works perfectly on phone) ---
-        const noWrapper = document.getElementById('noWrapperMobile');
-        const noBtn = document.getElementById('noButton');
-        const yesBtn = document.getElementById('yesButton');
-
-        // ensure no button itself is unclickable
-        noBtn.style.pointerEvents = 'none';
-        // wrapper captures all pointer events
-        noWrapper.style.pointerEvents = 'auto';
-
-        // function to move no button to random location within .button-pair
-        function moveNoButton(force = false) {
-            if (!p3.classList.contains('active')) return;
-            const parentDiv = document.querySelector('.button-pair');
-            if (!parentDiv || !noWrapper) return;
-
-            const parentRect = parentDiv.getBoundingClientRect();
-            const wrapperRect = noWrapper.getBoundingClientRect();
-
-            // relative to parent (position absolute)
-            const maxLeft = parentRect.width - wrapperRect.width - 12;
-            const maxTop = parentRect.height - wrapperRect.height - 12;
-
-            let newLeft = Math.random() * maxLeft;
-            // avoid YES region: keep away from left 0-45% area
-            while (newLeft < parentRect.width * 0.42 && newLeft > 10) {
-                newLeft = Math.random() * maxLeft;
-            }
-            let newTop = Math.random() * maxTop;
-            if (newTop < 5) newTop = 20;
-            if (newTop > maxTop) newTop = maxTop - 10;
+            const noBtn = document.getElementById('noBtn');
+            const yesBtn = document.getElementById('yesBtn');
+            const inviteContainer = document.getElementById('inviteContainer');
+            const panel = document.getElementById('buttonPanel');
             
-            noWrapper.style.left = newLeft + 'px';
-            noWrapper.style.top = newTop + 'px';
-        }
-
-        // flee from touch or mouse (proximity)
-        function fleeHandler(e) {
-            if (!p3.classList.contains('active')) return;
-            let clientX, clientY;
-            if (e.touches) {
-                clientX = e.touches[0].clientX;
-                clientY = e.touches[0].clientY;
-            } else {
-                clientX = e.clientX;
-                clientY = e.clientY;
+            // ---------------------------------------------------------
+            // TWINKLE TWINKLE CHARACTER: RUNAWAY NO BUTTON
+            // It flees from mouseenter, click, touchstart, mousemove over button.
+            // Also moves when user tries to click/tap — never clickable.
+            // Optimized for phone: touch events + pointer.
+            // ---------------------------------------------------------
+            
+            // get viewport boundaries to keep button inside panel approx
+            function getContainerRect() {
+                // using button panel as boundary – so no button stays within visible area
+                return panel.getBoundingClientRect();
             }
 
-            const noRect = noWrapper.getBoundingClientRect();
-            const centerX = noRect.left + noRect.width/2;
-            const centerY = noRect.top + noRect.height/2;
-            const dist = Math.hypot(clientX - centerX, clientY - centerY);
-            if (dist < 150) { // flee radius
-                moveNoButton();
+            // main function to move the NO button to a random position inside panel
+            function moveNoButton() {
+                if (!noBtn) return;
+
+                // ensure button is not display none, get its dimensions
+                const btnRect = noBtn.getBoundingClientRect();
+                const panelRect = panel.getBoundingClientRect();
+
+                // panel relative dimensions (including possible scroll, but minimal)
+                const panelWidth = panelRect.width;
+                const panelHeight = panelRect.height;
+                
+                // button width/height
+                const btnWidth = btnRect.width;
+                const btnHeight = btnRect.height;
+
+                // avoid overflow: calculate max left, top relative to panel
+                // panel uses relative positioning, we will apply 'left' and 'top' relative to button's original position.
+                // but we need to set position: relative on panel? we keep panel as relative, button is absolute? 
+                // but currently buttons are inline, we must set noBtn to position: absolute to move freely inside panel.
+                // we set panel position: relative if not already, and button absolute.
+                
+                // style panel relative once
+                if (getComputedStyle(panel).position !== 'relative') {
+                    panel.style.position = 'relative';
+                }
+                // make noBtn absolute positioned
+                noBtn.style.position = 'absolute';
+                noBtn.style.zIndex = '30';
+                
+                // calculate safe max left/top: cannot go beyond panel right edge and bottom edge
+                // leave at least 5px margin from edges
+                let maxLeft = panelWidth - btnWidth - 5;
+                let maxTop = panelHeight - btnHeight - 5;
+                
+                // minimal boundaries (prevent from sticking to left/top edge)
+                let minLeft = 5;
+                let minTop = 5;
+
+                // If panel too small, adjust
+                if (maxLeft < minLeft) maxLeft = minLeft + 10;
+                if (maxTop < minTop) maxTop = minTop + 10;
+
+                // generate random positions within safe zone
+                let newLeft = Math.floor(Math.random() * (maxLeft - minLeft + 1) + minLeft);
+                let newTop = Math.floor(Math.random() * (maxTop - minTop + 1) + minTop);
+                
+                // apply positions (relative to panel)
+                noBtn.style.left = newLeft + 'px';
+                noBtn.style.top = newTop + 'px';
+                
+                // also ensure the YES button remains static (no absolute)
+                // make sure yes button not affected
+                yesBtn.style.position = 'relative';  // keep in flow
+                yesBtn.style.left = 'auto';
+                yesBtn.style.top = 'auto';
             }
-        }
 
-        // click on wrapper = flee (no click possible)
-        function fleeOnTouchClick(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            if (p3.classList.contains('active')) {
-                moveNoButton();
-                // mini effect
-                noWrapper.style.transform = 'scale(0.9)';
-                setTimeout(() => noWrapper.style.transform = 'scale(1)', 120);
+            // initialize button absolute start position (first runaway)
+            function initNoButtonPosition() {
+                // set panel to relative
+                panel.style.position = 'relative';
+                noBtn.style.position = 'absolute';
+                noBtn.style.right = 'auto'; // reset
+                noBtn.style.bottom = 'auto';
+                
+                // put it at original spot near right side but within panel. initial left/top set.
+                // we set roughly original position: right side.
+                setTimeout(() => {
+                    // ensure it's inside after render
+                    const panelRect = panel.getBoundingClientRect();
+                    const btnRect = noBtn.getBoundingClientRect();
+                    noBtn.style.left = (panelRect.width - btnRect.width - 15) + 'px';
+                    noBtn.style.top = '5px';   // near top, away from yes
+                }, 10);
             }
-            return false;
-        }
 
-        // attach listeners
-        document.addEventListener('mousemove', fleeHandler);
-        document.addEventListener('touchmove', fleeHandler, { passive: false });
+            // event listeners: move on mouseenter, click, touchstart, and also mousemove over button? 
+            // to make it "keep running away from mouse" we also move on mousemove over noBtn.
+            function attachRunawayEvents() {
+                // move on mouse enter (cursor approaching)
+                noBtn.addEventListener('mouseenter', function(e) {
+                    e.preventDefault();
+                    moveNoButton();
+                    return false;
+                });
 
-        if (noWrapper) {
-            noWrapper.addEventListener('click', fleeOnTouchClick);
-            noWrapper.addEventListener('touchstart', fleeOnTouchClick, { passive: false });
-        }
+                // move on mousemove over button - it's running away continuously!
+                noBtn.addEventListener('mousemove', function(e) {
+                    e.preventDefault();
+                    moveNoButton();
+                    return false;
+                });
 
-        // YES button -> page 4
-        yesBtn.addEventListener('click', function(e){
-            e.preventDefault();
-            show(p4);
-        });
+                // for touch phones: move on touchstart
+                noBtn.addEventListener('touchstart', function(e) {
+                    e.preventDefault(); // also prevents any click from materializing
+                    moveNoButton();
+                    return false;
+                }, { passive: false });
 
-        // reposition on orientation/resize
-        window.addEventListener('resize', function() {
-            if (p3.classList.contains('active')) moveNoButton();
-        });
+                // also move on touchmove 
+                noBtn.addEventListener('touchmove', function(e) {
+                    e.preventDefault();
+                    moveNoButton();
+                    return false;
+                }, { passive: false });
 
-        // initial move when page 3 loads
-        window.addEventListener('load', function() {
-            setTimeout(() => { if (p3.classList.contains('active')) moveNoButton(); }, 50);
-        });
-        setTimeout(() => { if (p3.classList.contains('active')) moveNoButton(); }, 80);
+                // click should never happen, but to be super sure:
+                noBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.stopImmediatePropagation();
+                    moveNoButton();
+                    return false;
+                });
 
-        // --- PAGE 4 no further action ---
+                // also pointer events for safety
+                noBtn.addEventListener('pointerdown', function(e) {
+                    e.preventDefault();
+                    moveNoButton();
+                    return false;
+                });
 
-        // --- block zoom on buttons for Telegram WebView ---
-        const allInteractive = document.querySelectorAll('.btn, .btn-yes, .btn-no, .love-meter');
-        allInteractive.forEach(el => {
-            el.addEventListener('touchstart', (e) => {
-                e.preventDefault(); // prevents double-tap zoom
-            }, { passive: false });
-        });
+                noBtn.addEventListener('pointermove', function(e) {
+                    e.preventDefault();
+                    moveNoButton();
+                    return false;
+                });
 
-        // special: make slider work without zoom
-        const sliderTouch = document.getElementById('loveSlider');
-        sliderTouch.addEventListener('touchstart', (e) => { e.stopPropagation(); }, { passive: true });
+                // also move when tapped (try to stop all)
+                noBtn.addEventListener('touchcancel', function(e) {
+                    // just in case
+                });
+            }
 
-    })();
-</script>
+            // disable default action for no button thoroughly
+            function disableNoButtonDefault() {
+                // make sure it cannot be clicked via any native action
+                noBtn.disabled = false; // we don't want disabled style, but we cancel events
+                noBtn.setAttribute('aria-disabled', 'true');
+                
+                // Prevent all drag and selection
+                noBtn.addEventListener('dragstart', (e) => e.preventDefault());
+                noBtn.addEventListener('selectstart', (e) => e.preventDefault());
+            }
 
-<!-- extra guarantee: no pointer events on no button -->
-<style>
-    #noButton { pointer-events: none !important; }
-    .no-mobile-wrapper { pointer-events: auto; touch-action: pan-y; }
-    .button-pair { touch-action: pan-y; }
-    /* huge hit area */
-    .btn-yes, .btn-no { min-height: 80px; display: flex; align-items: center; justify-content: center; }
-    /* no pull-to-refresh interference inside card */
-    .valentine-card { touch-action: pan-y; }
-</style>
+            // YES BUTTON: show invite card, hide no? we keep no, just show invite
+            function setupYesButton() {
+                yesBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // show invite with love
+                    inviteContainer.classList.add('show');
+                    
+                    // optional: make no button even more hidden? we just keep it but move away.
+                    moveNoButton(); // give it a final scoot
+                    
+                    // add sparkle to invite
+                    // you can also disable further yes clicks? no needed
+                });
 
+                yesBtn.addEventListener('touchstart', function(e) {
+                    // no need to move, just ensure we don't interfere with no
+                }, { passive: false });
+            }
+
+            // additional: move button on window resize to keep inside
+            window.addEventListener('resize', function() {
+                // ensure no button stays inside
+                if (noBtn.style.position === 'absolute') {
+                    // re-constrain
+                    const panelRect = panel.getBoundingClientRect();
+                    const btnRect = noBtn.getBoundingClientRect();
+                    let left = parseFloat(noBtn.style.left);
+                    let top = parseFloat(noBtn.style.top);
+                    if (isNaN(left)) left = 20;
+                    if (isNaN(top)) top = 20;
+                    
+                    const maxLeft = panelRect.width - btnRect.width - 5;
+                    const maxTop = panelRect.height - btnRect.height - 5;
+                    if (left > maxLeft) noBtn.style.left = maxLeft + 'px';
+                    if (top > maxTop) noBtn.style.top = maxTop + 'px';
+                    if (left < 5) noBtn.style.left = '5px';
+                    if (top < 5) noBtn.style.top = '5px';
+                }
+            });
+
+            // initial call: set absolute and initial pos
+            initNoButtonPosition();
+            attachRunawayEvents();
+            disableNoButtonDefault();
+            setupYesButton();
+
+            // additional: on load, move once to randomize starting position (but not too far)
+            window.addEventListener('load', function() {
+                setTimeout(() => {
+                    moveNoButton();
+                }, 50);
+                // also everytime user interacts with Yes, move no away (done)
+            });
+
+            // for phones: ensure that if the no button goes out of panel, fix
+            setInterval(function() {
+                // gentle correction if outside boundaries
+                if (noBtn && noBtn.style.position === 'absolute') {
+                    const panelRect = panel.getBoundingClientRect();
+                    const btnRect = noBtn.getBoundingClientRect();
+                    // check if button overlaps panel sufficiently
+                    let left = parseFloat(noBtn.style.left);
+                    let top = parseFloat(noBtn.style.top);
+                    if (isNaN(left)) left = 0;
+                    if (isNaN(top)) top = 0;
+                    
+                    const maxLeft = panelRect.width - btnRect.width - 5;
+                    const maxTop = panelRect.height - btnRect.height - 5;
+                    if (left > maxLeft) noBtn.style.left = Math.max(5, maxLeft) + 'px';
+                    if (top > maxTop) noBtn.style.top = Math.max(5, maxTop) + 'px';
+                    if (left < 5) noBtn.style.left = '5px';
+                    if (top < 5) noBtn.style.top = '5px';
+                }
+            }, 300);
+        })();
+    </script>
+
+    <!-- tiny inline style for button initial fallback if js delayed -->
+    <noscript>
+        <style>.btn-no { left: 70% !important; position: relative; }</style>
+    </noscript>
 </body>
 </html>
