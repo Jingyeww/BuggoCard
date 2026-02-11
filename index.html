@@ -130,8 +130,38 @@
             padding: 14px 36px;
         }
 
-        .valentine-img {
+        .first-img {
+            width: 400px;
+            max-width: 90%;
+            border-radius: 40px;
+            margin: 30px auto;
+            border: 8px solid white;
+            box-shadow: 0 18px 25px #ffb6c1;
+            display: block;
+        }
+
+        .second-img {
             width: 300px;
+            max-width: 90%;
+            border-radius: 40px;
+            margin: 30px auto;
+            border: 8px solid white;
+            box-shadow: 0 18px 25px #ffb6c1;
+            display: block;
+        }
+
+        .third-img {
+            width: 500px;
+            max-width: 90%;
+            border-radius: 40px;
+            margin: 30px auto;
+            border: 8px solid white;
+            box-shadow: 0 18px 25px #ffb6c1;
+            display: block;
+        }
+
+        .fourth-img {
+            width: 500px;
             max-width: 90%;
             border-radius: 40px;
             margin: 30px auto;
@@ -209,9 +239,10 @@
     <!-- PAGE 1: SLIDER 0-100, must be 100 to proceed -->
     <div id="page1" class="page">
         <h1 class="love-question">❤️ How much do you love Buffilo? ❤️</h1>
-        
+        <img id="valentineImage" class="first-img" src="twinklebuff.png"
+             alt="Twinkle Buff">
         <div class="slider-container">
-            <input type="range" id="loveSlider" min="0" max="100" value="50" step="1">
+            <input type="range" id="loveSlider" min="0" max="100" value="0" step="1">
             <div class="slider-value" id="sliderDisplay">50</div>
         </div>
 
@@ -223,7 +254,7 @@
     <div id="page2" class="page hidden">
         <h1 style="font-size: 3rem; margin-bottom: 10px;">Weally?? You wub the Buffilo! 🥰</h1>
         <!-- Image area – replace src with your own image. I've placed a placeholder hearts GIF -->
-        <img id="valentineImage" class="valentine-img" src="data:image/svg+xml,%3Csvg xmlns='https://github.com/Jingyeww/BuggoCard/blob/main/twinkleapple.png"
+        <img id="valentineImage" class="second-img" src="twinkleapple.png"
              alt="Twinkle Apple">
         <!-- <p style="font-size: 1.3rem; color: #a1445c;">( you can replace with your own picture )</p> -->
         <button id="nextBtn2" class="btn small">Next →</button>
@@ -233,8 +264,8 @@
     <div id="page3" class="page hidden">
         <h1 style="font-size: 2.8rem; margin-bottom: 20px;">Would you be my valentines? 💘</h1>
         <!-- Image area – replace src with your own image. I've placed a placeholder hearts GIF -->
-        <img id="valentineImage" class="valentine-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23ffe2ec'/%3E%3Ctext x='90' y='160' font-size='34' fill='%23b34160' font-weight='bold'%3E❤️ JING YEW ❤️%3C/text%3E%3Ctext x='70' y='220' font-size='28' fill='%23b34160'%3EYOUR IMAGE HERE%3C/text%3E%3C/svg%3E"
-             alt="Lovely placeholder for Jing Yew">
+        <img id="valentineImage" class="third-img" src="twinkledino.png"
+             alt="Twinkle Dino">
         <div class="two-btns">
             <button id="yesBtn" class="btn yes-btn">YES</button>
             <button id="noBtn" class="btn no-btn">No</button>
@@ -245,9 +276,12 @@
     <!-- PAGE 4: See you on 14th Feb Plan: Kafe Utu and Skull Panda Exhibit -->
     <div id="page4" class="page hidden">
         <h1 style="font-size: 2.5rem;">💖 See you on 14th Feb! 💖</h1>
-        <div class="plan-details">
+        <!-- Image area – replace src with your own image. I've placed a placeholder hearts GIF -->
+        <img id="valentineImage" class="fourth-img" src="twinklebirb.png"
+             alt="Twinkle Birb">
+        <!-- <div class="plan-details">
             <span class="plan-text">📅 Plan:<br> Kafe Utu ☕<br> & <br> Skull Panda Exhibit 🧸</span>
-        </div>
+        </div> -->
         <p style="font-size: 1.8rem; margin-top: 30px;">Can't wait! ✨</p>
         <p class="heart">❤️ ❤️ ❤️</p>
         <p style="color: #a13e57; margin-top: 35px;">– made with love for Jing Yew –</p>
@@ -393,6 +427,3 @@
     -->
 </body>
 </html>
-
-
-
