@@ -35,6 +35,7 @@
             text-align: center;
             border: 2px solid #ffb6c9;
             transition: all 0.2s ease;
+            position: relative;
         }
 
         .hidden {
@@ -176,6 +177,8 @@
             gap: 30px;
             margin-top: 40px;
             flex-wrap: wrap;
+            position: relative;
+            min-height: 120px;
         }
 
         .yes-btn {
@@ -183,6 +186,8 @@
             border-bottom: 8px solid #9e2d48;
             font-size: 2rem;
             padding: 16px 48px;
+            position: relative;
+            z-index: 10;
         }
 
         .no-btn {
@@ -190,14 +195,17 @@
             border-bottom: 8px solid #6b5e5e;
             font-size: 2rem;
             padding: 16px 48px;
-            opacity: 0.7;
-            cursor: not-allowed;
-            pointer-events: none;  /* not functional */
+            opacity: 0.9;
+            cursor: pointer;
+            pointer-events: auto;
+            position: absolute;
+            transition: all 0.2s ease;
+            z-index: 20;
         }
 
         .no-btn:hover {
-            background: #b1a1a1; 
-            border-bottom-width: 8px; /* stay same, no click */
+            background: #b1a1a1;
+            transform: scale(0.95);
         }
 
         .plan-details {
@@ -233,17 +241,27 @@
             color: #ff3b5c;
             font-size: 2rem;
         }
+        
+        .tease-message {
+            font-size: 1.3rem;
+            color: #b34160;
+            margin-top: 20px;
+            font-style: italic;
+            min-height: 40px;
+        }
     </style>
 </head>
 <body>
     <!-- PAGE 1: SLIDER 0-100, must be 100 to proceed -->
     <div id="page1" class="page">
         <h1 class="love-question">❤️ How much do you love Buffilo? ❤️</h1>
-        <img id="valentineImage" class="first-img" src="https://github.com/Jingyeww/BuggoCard/blob/main/twinklebuff.png"
+        <img id="page1-img" class="first-img" src="https://github.com/Jingyeww/BuggoCard/blob/main/twinklebuff.png"
              alt="Twinkle Buff">
+        <!-- <img id="valentineImage" class="first-img" src="https://github.com/Jingyeww/BuggoCard/blob/main/twinklebuff.png"
+             alt="Twinkle Buff"> -->
         <div class="slider-container">
             <input type="range" id="loveSlider" min="0" max="100" value="0" step="1">
-            <div class="slider-value" id="sliderDisplay">50</div>
+            <div class="slider-value" id="sliderDisplay">0</div>
         </div>
 
         <button id="nextBtn1" class="btn">Next</button>
@@ -253,31 +271,27 @@
     <!-- PAGE 2: Of course! + image + next -->
     <div id="page2" class="page hidden">
         <h1 style="font-size: 3rem; margin-bottom: 10px;">Weally?? You wub the Buffilo! 🥰</h1>
-        <!-- Image area – replace src with your own image. I've placed a placeholder hearts GIF -->
-        <img id="valentineImage" class="second-img" src="https://github.com/Jingyeww/BuggoCard/blob/main/twinkleapple.png"
+        <img id="page2-img" class="second-img" src="https://github.com/Jingyeww/BuggoCard/blob/main/twinkleapple.png"
              alt="Twinkle Apple">
-        <!-- <p style="font-size: 1.3rem; color: #a1445c;">( you can replace with your own picture )</p> -->
         <button id="nextBtn2" class="btn small">Next →</button>
     </div>
 
-    <!-- PAGE 3: Would you be my valentines? + yes/no, no is not functional -->
+    <!-- PAGE 3: Would you be my valentines? + yes/no, no button runs away! -->
     <div id="page3" class="page hidden">
         <h1 style="font-size: 2.8rem; margin-bottom: 20px;">Would you be my valentines? 💘</h1>
-        <!-- Image area – replace src with your own image. I've placed a placeholder hearts GIF -->
-        <img id="valentineImage" class="third-img" src="https://github.com/Jingyeww/BuggoCard/blob/main/twinkledino.png"
+        <img id="page3-img" class="third-img" src="https://github.com/Jingyeww/BuggoCard/blob/main/twinkledino.png"
              alt="Twinkle Dino">
-        <div class="two-btns">
+        <div class="two-btns" id="buttonContainer">
             <button id="yesBtn" class="btn yes-btn">YES</button>
             <button id="noBtn" class="btn no-btn">No</button>
         </div>
-        <!-- <p style="margin-top: 50px; color: #b3586e; font-style: italic;">(the no button is just for show～)</p> -->
+        <p id="teaseMessage" class="tease-message"></p>
     </div>
 
     <!-- PAGE 4: See you on 14th Feb Plan: Kafe Utu and Skull Panda Exhibit -->
     <div id="page4" class="page hidden">
         <h1 style="font-size: 2.5rem;">💖 See you on 14th Feb! 💖</h1>
-        <!-- Image area – replace src with your own image. I've placed a placeholder hearts GIF -->
-        <img id="valentineImage" class="fourth-img" src="https://github.com/Jingyeww/BuggoCard/blob/main/twinklebirb.png"
+        <img id="page4-img" class="fourth-img" src="https://github.com/Jingyeww/BuggoCard/blob/main/twinklebirb.png"
              alt="Twinkle Birb">
         <!-- <div class="plan-details">
             <span class="plan-text">📅 Plan:<br> Kafe Utu ☕<br> & <br> Skull Panda Exhibit 🧸</span>
@@ -306,8 +320,11 @@
             // page2 next button
             const nextBtn2 = document.getElementById('nextBtn2');
 
-            // page3 yes button (no button does nothing)
+            // page3 elements
             const yesBtn = document.getElementById('yesBtn');
+            const noBtn = document.getElementById('noBtn');
+            const buttonContainer = document.getElementById('buttonContainer');
+            const teaseMessage = document.getElementById('teaseMessage');
 
             // --- helper to show only one page ---
             function showPage(pageToShow) {
@@ -320,111 +337,174 @@
                 pageToShow.classList.remove('hidden');
             }
 
-            // --- slider live value ---
+            // --- 💖 SHOW COMMENTS LIVE WHILE SLIDING 💖 ---
+            function updateLoveMessage() {
+                const loveValue = parseInt(loveSlider.value, 10);
+                
+                if (loveValue === 100) {
+                    tryAgainMsg.textContent = '✨ Perfect! Now press Next ✨';
+                    tryAgainMsg.style.color = '#ad3a5a';
+                } 
+                else if (loveValue <= 30) {
+                    tryAgainMsg.textContent = '❌ Walao, so little? You don\'t wub buffilo! ❌';
+                    tryAgainMsg.style.color = '#c5385a';
+                } 
+                else if (loveValue >= 31 && loveValue <= 50) {
+                    tryAgainMsg.textContent = '❌ So little? More please! ❌';
+                    tryAgainMsg.style.color = '#c5385a';
+                } 
+                else if (loveValue >= 51 && loveValue <= 60) {
+                    tryAgainMsg.textContent = '❌ Seriously, half only? Try again! ❌';
+                    tryAgainMsg.style.color = '#c5385a';
+                } 
+                else if (loveValue >= 61 && loveValue <= 75) {
+                    tryAgainMsg.textContent = '❌ You can do better than this! ❌';
+                    tryAgainMsg.style.color = '#c5385a';
+                } 
+                else if (loveValue >= 76 && loveValue <= 99) {
+                    tryAgainMsg.textContent = '❌ So close! Just a bit more! ❌';
+                    tryAgainMsg.style.color = '#c5385a';
+                }
+            }
+
+            // --- slider live value display ---
             function updateSliderValue() {
                 sliderDisplay.textContent = loveSlider.value;
             }
-            loveSlider.addEventListener('input', updateSliderValue);
-            // initial display
+
+            // --- Show comments when slider moves (LIVE!) ---
+            loveSlider.addEventListener('input', function() {
+                updateSliderValue();
+                updateLoveMessage();
+            });
+
+            // --- Initial display ---
             updateSliderValue();
+            updateLoveMessage();
 
             // --- PAGE 1: next button logic ---
             nextBtn1.addEventListener('click', function() {
                 const loveValue = parseInt(loveSlider.value, 10);
                 if (loveValue === 100) {
-                    // exactly 100? proceed to page 2
                     showPage(page2);
-                    // clear any try again message
                     tryAgainMsg.textContent = '';
                 } else {
-                    // less than 100 -> try again
-                    tryAgainMsg.textContent = '❌ So little? Please try again! ❌';
-                    // subtle shake effect (optional)
+                    updateLoveMessage();
                 }
             });
 
             // --- PAGE 2: next button -> page3 ---
             nextBtn2.addEventListener('click', function() {
                 showPage(page3);
+                // Reset no button position when entering page 3
+                resetNoButton();
             });
 
-            // --- PAGE 3: YES button -> page4 (no is non-functional) ---
+            // --- 🏃‍♂️ THE RUNAWAY NO BUTTON! 🏃‍♂️ ---
+            function getRandomPosition() {
+                const container = buttonContainer;
+                const containerWidth = container.offsetWidth;
+                const containerHeight = container.offsetHeight;
+                const noBtnWidth = noBtn.offsetWidth;
+                const noBtnHeight = noBtn.offsetHeight;
+                
+                // Calculate safe boundaries (keep button within container)
+                const maxX = Math.max(0, containerWidth - noBtnWidth - 20);
+                const maxY = Math.max(0, containerHeight - noBtnHeight - 20);
+                
+                // Generate random positions
+                const randomX = Math.min(maxX, Math.max(0, Math.floor(Math.random() * maxX)));
+                const randomY = Math.min(maxY, Math.max(0, Math.floor(Math.random() * maxY)));
+                
+                return { x: randomX, y: randomY };
+            }
+
+            function moveNoButton() {
+                const position = getRandomPosition();
+                noBtn.style.left = position.x + 'px';
+                noBtn.style.top = position.y + 'px';
+                
+                // Random teasing messages
+                const messages = [
+                    '😜 Try catch me!',
+                    '🏃‍♂️ Too slow!',
+                    '✨ Nope!',
+                    '🎯 Missed me!',
+                    '🤭 Can\'t catch me!',
+                    '💨 Zoom!',
+                    '🎪 Over here!',
+                    '🍃 Too fast!',
+                    '😆 Haha!',
+                    '🎠 Nowhere!'
+                ];
+                
+                const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+                teaseMessage.textContent = randomMessage;
+            }
+
+            function resetNoButton() {
+                // Reset no button to default position
+                noBtn.style.left = '';
+                noBtn.style.top = '';
+                noBtn.style.position = 'absolute';
+                teaseMessage.textContent = '';
+            }
+
+            // Make no button run away when clicked
+            noBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                moveNoButton();
+            });
+
+            // Also move when hovered (extra cheeky!)
+            noBtn.addEventListener('mouseover', function(e) {
+                // 70% chance to move on hover for extra fun
+                if (Math.random() > 0.3) {
+                    moveNoButton();
+                }
+            });
+
+            // --- PAGE 3: YES button -> page4 ---
             yesBtn.addEventListener('click', function() {
                 showPage(page4);
             });
 
-            // The NO button has class 'no-btn' with pointer-events: none, already non-functional.
-            // but we also add no js action. just in case we disable any accidental click.
-            document.getElementById('noBtn').addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                // absolutely nothing. it's dead.
-            });
-
-            // --- Bonus: if user wants to replace the image easily - we provide a comment 
-            // But also you can just set new src. i'll add a convenience: double click on image shows hint.
-            const vImage = document.getElementById('valentineImage');
-            vImage.addEventListener('dblclick', function() {
-                alert('✨ Replace the src with your own image! (e.g., your photo with Jing Yew)');
-            });
-
-            // --- Extra: pressing enter on slider? not needed, but user-friendly.
-            // Also reset try again message when slider moves
-            loveSlider.addEventListener('input', function() {
-                if (tryAgainMsg.textContent !== '') {
-                    tryAgainMsg.textContent = '';  // clear the nag when user slides
-                }
-            });
-
-            // --- ensure that slider snap to 100? Not forcing but we display clearly.
-            // prefill hint: maybe set initial to 50, but user can slide.
-
-            // for testing/ elegance: we are on page1 by default (no hidden class on page1)
-            // But ensure body loads with page1 only. page1 has no hidden.
-            // However, if any other page accidentally visible? they have hidden class, fine.
-
-            // double-check hidden classes at start: page2,3,4 hidden.
-            // page1 should not have hidden. In case of emergency:
-            if (!page1.classList.contains('hidden')) {
-                // all good
-            } else {
-                // force page1 visible
-                showPage(page1);
+            // --- Double-click image hints ---
+            const page1Img = document.getElementById('page1-img');
+            if (page1Img) {
+                page1Img.addEventListener('dblclick', function() {
+                    alert('✨ Replace twinklebuff.png with your own image! ✨');
+                });
             }
 
-            // --- Also: if the user somehow tries to submit on slider enter? not needed.
+            const page2Img = document.getElementById('page2-img');
+            if (page2Img) {
+                page2Img.addEventListener('dblclick', function() {
+                    alert('✨ Replace twinkleapple.png with your own image! ✨');
+                });
+            }
 
-            // one more: we can set a nice message if user slides to 100
-            loveSlider.addEventListener('change', function() {
-                if (loveSlider.value == 100) {
-                    // optional happy hint
-                    tryAgainMsg.textContent = '✨ That\'s more like it! ✨';
-                    tryAgainMsg.style.color = '#ad3a5a';
-                } else {
-                    tryAgainMsg.textContent = '';
-                }
-            });
+            const page3Img = document.getElementById('page3-img');
+            if (page3Img) {
+                page3Img.addEventListener('dblclick', function() {
+                    alert('✨ Replace twinkledino.png with your own image! ✨');
+                });
+            }
 
-            // small improvement: make no button really non-functional: disable pointer events already in css.
-            // just to be super sure, also prevent any default.
-            const noBtn = document.getElementById('noBtn');
-            noBtn.addEventListener('mousedown', (e) => e.preventDefault());
-            noBtn.addEventListener('click', (e) => e.preventDefault());
+            const page4Img = document.getElementById('page4-img');
+            if (page4Img) {
+                page4Img.addEventListener('dblclick', function() {
+                    alert('✨ Replace twinklebirb.png with your own image! ✨');
+                });
+            }
 
+            // --- Ensure page1 is visible ---
+            showPage(page1);
+            
+            // --- Fix slider display initial value ---
+            sliderDisplay.textContent = loveSlider.value;
         })();
     </script>
-
-    <!-- 
-        INSTRUCTIONS:
-        1. Replace the image in page2 with your own: 
-           find <img id="valentineImage" ...> and change src="your-image-url.jpg"
-        2. That's it! All pages work as requested:
-            - Page1: slider must be 100 to enable next.
-            - Page2: "Of Course!" + image + next.
-            - Page3: two buttons, No is non-functional.
-            - Page4: Plan: Kafe Utu and Skull Panda Exhibit.
-        3. No external dependencies, pure HTML/CSS/JS.
-    -->
 </body>
 </html>
-
